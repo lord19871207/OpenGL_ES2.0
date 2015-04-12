@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
         final boolean isSuppotES2=isSupportES2();
         if(isSuppotES2){
             glSurfaceView.setEGLContextClientVersion(2);
-            glSurfaceView.setRenderer(new FirstRender());//设置渲染器
+            glSurfaceView.setRenderer(new FirstRender(this));//设置渲染器
             renderSet=true;
 
         }else{
