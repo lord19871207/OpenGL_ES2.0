@@ -58,7 +58,7 @@ public class ShaderHelper {
 
         GLES20.glLinkProgram(programObjectId);
         final int[] linkStatus =new int[1];
-        GLES20.glGetProgramiv(programObjectId,GLES20.GL_LINK_STATUS,linkStatus,0);
+        GLES20.glGetProgramiv(programObjectId, GLES20.GL_LINK_STATUS, linkStatus, 0);
         if(LogConfig.ON){
             Log.v(TAG,"程序连接结果是："+GLES20.glGetProgramInfoLog(programObjectId));
         }
@@ -72,5 +72,19 @@ public class ShaderHelper {
         }
 
         return programObjectId;
+    }
+
+
+    /**
+     * 检验当前的程序是否低效 无法运行
+     * @param programPbjectId
+     * @return
+     */
+    public static boolean validateProgram(int programPbjectId){
+        GLES20.glValidateProgram(programPbjectId);
+        final int [] validateStatus=new int[1];
+        GLES20.glGetProgramiv(programPbjectId,GLES20.GL_VALIDATE_STATUS,validateStatus,0);
+        Log.v(TAG,"更新程序状态："+validateStatus[0]+"\nLog"+GLES20.glGetProgramInfoLog(programPbjectId));
+        return validateStatus[0]!=0;
     }
 }
