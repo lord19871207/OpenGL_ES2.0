@@ -2,9 +2,9 @@ package com.opengl.youyang.opengl_es20_study;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 import android.os.Build;
 
 import com.opengl.youyang.opengl_es20_study.utils.LogConfig;
@@ -26,33 +26,37 @@ public class FirstRender implements GLSurfaceView.Renderer {
     private static final int POSITION_COMPONENT_COUNT = 2;
     private static final int BYTES_PER_FLOAT =4;
     private static final String  A_COLOR ="a_Color";
+    private static final String A_POSITION="a_Position";
+    private static final String U_MATRIX="u_Matrix";
     private static final int COLOR_COMPONENT_COUNT=3;
     private static final int STRIDE=(POSITION_COMPONENT_COUNT+COLOR_COMPONENT_COUNT)* BYTES_PER_FLOAT;
     private FloatBuffer vertexData;
     private Context context;
     private int programId;
+
  //   private static final String U_COLOR="u_Color";//
   //  private int uColorLocation;//着色器在opengl中的位置
-    private static final String A_POSITION="a_Position";
     private int aPositionLocation;
     private int aColorLocation;
-
+    //存储矩阵数据
+    private final float[] projectionMarix=new float[16];
+    private int uMatrixLocation;
 
     public FirstRender(Context context) {
         //桌子对应的两个三角形顶点的位置属性
         float[] tableVertices = {
                 0f,0f,1f,1f,1f,
-                -0.5f,-0.5f,   0.7f,0.7f,0.7f,
-                0.5f,-0.5f,    0.7f,0.7f,0.7f,
-                0.5f,0.5f,     0.7f,0.7f,0.7f,
-                -0.5f,0.5f,    0.7f,0.7f,0.7f,
-                -0.5f,-0.5f,   0.7f,0.7f,0.7f,
+                -0.5f,-0.8f,   0.7f,0.7f,0.7f,
+                0.5f,-0.8f,    0.7f,0.7f,0.7f,
+                0.5f,0.8f,     0.7f,0.7f,0.7f,
+                -0.5f,0.8f,    0.7f,0.7f,0.7f,
+                -0.5f,-0.8f,   0.7f,0.7f,0.7f,
 
                 -0.5f,0f,       1f,0f,0f,
                 0.5f,0f,        1f,0f,0f,
 
-                0f,-0.25f,     0f,0f,1f,
-                0f,0.25f,      1f,0f,0f
+                0f,-0.4f,     0f,0f,1f,
+                0f,0.4f,      1f,0f,0f
 
         };
         //allocateDirect分配本地内存  将内存从虚拟机中拷贝到本地
@@ -79,6 +83,8 @@ public class FirstRender implements GLSurfaceView.Renderer {
         }
         //调用程序
         GLES20.glUseProgram(programId);
+        //获取矩阵的位置
+        uMatrixLocation=GLES20.glGetUniformLocation(programId,U_MATRIX);
         aColorLocation =GLES20.glGetAttribLocation(programId, A_COLOR);
         //获取属性的位置 (关联顶点着色器)
         aPositionLocation=GLES20.glGetAttribLocation(programId,A_POSITION);
@@ -86,12 +92,13 @@ public class FirstRender implements GLSurfaceView.Renderer {
         vertexData.position(0);
         //传入 1.属性位置   2.每一个顶点有多少个分量   3.浮点类型  4. 这个参数只有使用整形数据的时候才有意义  5.步长 间隔多长一个属性
         //6.告诉OpenGL从哪里去读取数据
-        GLES20.glVertexAttribPointer(aPositionLocation,POSITION_COMPONENT_COUNT,GLES20.GL_FLOAT,false,STRIDE,vertexData);
+        GLES20.glVertexAttribPointer(aPositionLocation, POSITION_COMPONENT_COUNT, GLES20.GL_FLOAT, false, STRIDE, vertexData);
         GLES20.glEnableVertexAttribArray(aPositionLocation);
 
         vertexData.position(POSITION_COMPONENT_COUNT);
         GLES20.glVertexAttribPointer(aColorLocation, COLOR_COMPONENT_COUNT, GLES20.GL_FLOAT, false, STRIDE, vertexData);
         GLES20.glEnableVertexAttribArray(aColorLocation);
+
     }
 
     @Override
@@ -99,15 +106,26 @@ public class FirstRender implements GLSurfaceView.Renderer {
         //surface尺寸发生变化时执行。 比如横竖屏切换
         GLES20.glViewport(0, 0, i, i1);
 
+        //创建正交投影矩阵
+        final float aspctRatio=i>i1?(float)i/(float)i1:(float)i1/(float)i;
+        if (i>i1){
+            //横屏  参数：目标矩阵 起始偏移量  x轴的范围   y轴的范围   z轴的范围
+            Matrix.orthoM(projectionMarix,0,-aspctRatio,aspctRatio,-1f,1f,-1f,1f);
+        }else{
+            //竖屏
+            Matrix.orthoM(projectionMarix,0,-1,1,-aspctRatio,aspctRatio,-1f,1f);
+        }
     }
 
     @Override
     public void onDrawFrame(GL10 gl10) {
         //每次绘制一帧画面时都会调用。如果什么都不做，可能会看到糟糕的闪烁效果
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+
+        //传递矩阵给着色器
+        GLES20.glUniformMatrix4fv(uMatrixLocation, 1, false, projectionMarix, 0);
         //更新着色器中的u_Color的值。
        // GLES20.glUniform4f(uColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);
-
 
         //绘制桌子 从顶点组 的第0个开始读 总共读6个
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, 6);
