@@ -23,7 +23,7 @@ import javax.microedition.khronos.opengles.GL10;
  */
 @TargetApi(Build.VERSION_CODES.FROYO)
 public class FirstRender implements GLSurfaceView.Renderer {
-    private static final int POSITION_COMPONENT_COUNT = 2;
+    private static final int POSITION_COMPONENT_COUNT = 4;
     private static final int BYTES_PER_FLOAT =4;
     private static final String  A_COLOR ="a_Color";
     private static final String A_POSITION="a_Position";
@@ -45,18 +45,18 @@ public class FirstRender implements GLSurfaceView.Renderer {
     public FirstRender(Context context) {
         //桌子对应的两个三角形顶点的位置属性
         float[] tableVertices = {
-                0f,0f,1f,1f,1f,
-                -0.5f,-0.8f,   0.7f,0.7f,0.7f,
-                0.5f,-0.8f,    0.7f,0.7f,0.7f,
-                0.5f,0.8f,     0.7f,0.7f,0.7f,
-                -0.5f,0.8f,    0.7f,0.7f,0.7f,
-                -0.5f,-0.8f,   0.7f,0.7f,0.7f,
+                0f,0f,0f,1.5f,         1f,1f,1f,
+                -0.5f,-0.8f,0f,1f,   0.7f,0.7f,0.7f,
+                0.5f,-0.8f,0f,1f,    0.7f,0.7f,0.7f,
+                0.5f,0.8f, 0f,2f,    0.7f,0.7f,0.7f,
+                -0.5f,0.8f, 0f,2f,   0.7f,0.7f,0.7f,
+                -0.5f,-0.8f,0f,1f,   0.7f,0.7f,0.7f,
 
-                -0.5f,0f,       1f,0f,0f,
-                0.5f,0f,        1f,0f,0f,
+                -0.5f,0f,0f,1.5f,        1f,0f,0f,
+                0.5f,0f, 0f,1.5f,        1f,0f,0f,
 
-                0f,-0.4f,     0f,0f,1f,
-                0f,0.4f,      1f,0f,0f
+                0f,-0.4f,0f,1.25f,      0f,0f,1f,
+                0f,0.4f, 0f,1.75f,      1f,0f,0f
 
         };
         //allocateDirect分配本地内存  将内存从虚拟机中拷贝到本地
@@ -83,6 +83,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         }
         //调用程序
         GLES20.glUseProgram(programId);
+
         //获取矩阵的位置
         uMatrixLocation=GLES20.glGetUniformLocation(programId,U_MATRIX);
         aColorLocation =GLES20.glGetAttribLocation(programId, A_COLOR);
