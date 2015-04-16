@@ -23,14 +23,14 @@ import javax.microedition.khronos.opengles.GL10;
  */
 @TargetApi(Build.VERSION_CODES.FROYO)
 public class FirstRender implements GLSurfaceView.Renderer {
-    private static final int POSITION_COMPONENT_COUNT = 4;
-    private static final int BYTES_PER_FLOAT =4;
+    private static final int POSITION_COMPONENT_COUNT = 4;//顶点拥有几个分量
+    private static final int BYTES_PER_FLOAT =4;//每个float类型含有的字节数
     private static final String  A_COLOR ="a_Color";
     private static final String A_POSITION="a_Position";
     private static final String U_MATRIX="u_Matrix";
-    private static final int COLOR_COMPONENT_COUNT=3;
-    private static final int STRIDE=(POSITION_COMPONENT_COUNT+COLOR_COMPONENT_COUNT)* BYTES_PER_FLOAT;
-    private FloatBuffer vertexData;
+    private static final int COLOR_COMPONENT_COUNT=3; //颜色的分量数目 rgb
+    private static final int STRIDE=(POSITION_COMPONENT_COUNT+COLOR_COMPONENT_COUNT)* BYTES_PER_FLOAT;//步长 ，每个顶点间隔多少个字节
+    private FloatBuffer vertexData; //缓存的顶点数据
     private Context context;
     private int programId;
 
@@ -40,6 +40,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
     private int aColorLocation;
     //存储矩阵数据
     private final float[] projectionMarix=new float[16];
+    //矩阵的位置
     private int uMatrixLocation;
 
     public FirstRender(Context context) {
@@ -61,9 +62,9 @@ public class FirstRender implements GLSurfaceView.Renderer {
         };
         //allocateDirect分配本地内存  将内存从虚拟机中拷贝到本地
         vertexData= ByteBuffer.allocateDirect(tableVertices.length * BYTES_PER_FLOAT).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        //将顶点数据置入缓存
         vertexData.put(tableVertices);
         this.context=context;
-
 
     }
 
@@ -74,8 +75,11 @@ public class FirstRender implements GLSurfaceView.Renderer {
         String  vertexShaderSource= TextResourceReader.readTextResourceFromRaw(context,R.raw.simple_vertex_shader);
         String fragmentShaderSource= TextResourceReader.readTextResourceFromRaw(context,R.raw.simple_fragment_shader);
 
+        //编译顶点着色器和片段着色器
         int vertextShader= ShaderHelper.compileVertexShader(vertexShaderSource);
         int fragmentShader=ShaderHelper.compileFragmentShader(fragmentShaderSource);
+
+        //链接 获取程序id
         programId=ShaderHelper.linkProgram(vertextShader,fragmentShader);
 
         if(LogConfig.ON){
@@ -96,6 +100,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         GLES20.glVertexAttribPointer(aPositionLocation, POSITION_COMPONENT_COUNT, GLES20.GL_FLOAT, false, STRIDE, vertexData);
         GLES20.glEnableVertexAttribArray(aPositionLocation);
 
+        //跳过顶点的位置数据 开始读取颜色数据
         vertexData.position(POSITION_COMPONENT_COUNT);
         GLES20.glVertexAttribPointer(aColorLocation, COLOR_COMPONENT_COUNT, GLES20.GL_FLOAT, false, STRIDE, vertexData);
         GLES20.glEnableVertexAttribArray(aColorLocation);

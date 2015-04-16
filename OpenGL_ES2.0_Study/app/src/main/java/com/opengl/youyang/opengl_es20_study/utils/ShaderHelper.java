@@ -19,6 +19,7 @@ public class ShaderHelper {
     }
 
     private static int compileShader(int type ,String shaderCode){
+        //创建着色器
         final int shaderObjectId=GLES20.glCreateShader(type);
         if(shaderObjectId==0){
             if(LogConfig.ON){

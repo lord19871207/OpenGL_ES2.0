@@ -29,7 +29,6 @@ public class MainActivity extends Activity {
             glSurfaceView.setEGLContextClientVersion(2);
             glSurfaceView.setRenderer(new FirstRender(this));//设置渲染器
             renderSet=true;
-
         }else{
             Toast.makeText(this,"该手机不支持OpenGL ES 2.0",Toast.LENGTH_LONG).show();
             return;
