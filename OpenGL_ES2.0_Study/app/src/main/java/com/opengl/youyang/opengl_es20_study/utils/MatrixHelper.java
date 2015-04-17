@@ -16,7 +16,7 @@ public class MatrixHelper {
         m[3]=0f;
 
         m[4]=0f;
-        m[5]=0f;
+        m[5]=a;
         m[6]=0f;
         m[7]=0f;
 

@@ -129,11 +129,15 @@ public class FirstRender implements GLSurfaceView.Renderer {
         //将模型矩阵设置为单位矩阵
         Matrix.setIdentityM(modelMatrix, 0);
         //沿着z轴平移-2
-        Matrix.translateM(modelMatrix, 0, 0f, 0f, -2f);
+
+        Matrix.translateM(modelMatrix, 0, 0f, 0f, -2.5f);
+        Matrix.rotateM(modelMatrix, 0, -60f, 1f, 0f, 0f);
 
         final float[] temp = new float[16];
         Matrix.multiplyMM(temp, 0, projectionMarix, 0, modelMatrix, 0);
         System.arraycopy(temp, 0, projectionMarix, 0, temp.length);
+
+
 
     }
 
