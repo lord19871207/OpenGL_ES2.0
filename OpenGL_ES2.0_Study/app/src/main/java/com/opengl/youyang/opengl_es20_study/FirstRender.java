@@ -63,9 +63,17 @@ public class FirstRender implements GLSurfaceView.Renderer {
                 0f, 0.4f, 1f, 0f, 0f
 
         };
-        //allocateDirect分配本地内存  将内存从虚拟机中拷贝到本地
-        vertexData = ByteBuffer.allocateDirect(tableVertices.length * BYTES_PER_FLOAT).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        //将顶点数据置入缓存
+        vertexData =
+                //allocateDirect分配本地内存  float数组的长度乘以每一个float类型占用的字节数
+                ByteBuffer.allocateDirect(tableVertices.length * BYTES_PER_FLOAT).
+                        //告诉字节缓冲区按照本地字节序组织它的内容
+                        //当一个值占用多个字节，比如32位整形数，字节按照从高位到低位 或者从低位到高位排序
+                        //排什么顺序其实不重要，重要的是程序运行过程中所有的字节都得按同样的顺序排序，
+                        //不能有的排正序，有的排倒序。 而  order(ByteOrder.nativeOrder()就能达到这个目的。
+                        order(ByteOrder.nativeOrder())
+                        //根据分配的内存获取一个能分配本地内存的FloatBuffer实例对象。
+                        .asFloatBuffer();
+        //将顶点数据 内存从虚拟机中拷贝到本地
         vertexData.put(tableVertices);
         this.context = context;
 
