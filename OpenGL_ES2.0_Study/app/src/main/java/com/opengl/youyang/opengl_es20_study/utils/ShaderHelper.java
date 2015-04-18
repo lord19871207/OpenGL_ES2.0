@@ -88,4 +88,23 @@ public class ShaderHelper {
         Log.v(TAG,"更新程序状态："+validateStatus[0]+"\nLog"+GLES20.glGetProgramInfoLog(programPbjectId));
         return validateStatus[0]!=0;
     }
+
+
+    /**
+     * 链接顶点着色器和片段着色器，返回程序id
+     * @param vertexShaderSource
+     * @param fragmentShaderSource
+     * @return
+     */
+    public static int buildProgram(String vertexShaderSource,String fragmentShaderSource){
+        int program;
+        int vertexShader=compileVertexShader(vertexShaderSource);
+        int fragmentShader=compileFragmentShader(fragmentShaderSource);
+        program=linkProgram(vertexShader,fragmentShader);
+
+        if (LogConfig.ON){
+            validateProgram(program);
+        }
+        return program;
+    }
 }
