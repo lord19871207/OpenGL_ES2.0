@@ -24,7 +24,6 @@ public class ShaderProgram {
         program = ShaderHelper.buildProgram(TextResourceReader.readTextResourceFromRaw(context,
                 vertexShaderResourceId), TextResourceReader.readTextResourceFromRaw(context,
                 fragmentShaderResourceId));
-
     }
 
     public void useProgram(){

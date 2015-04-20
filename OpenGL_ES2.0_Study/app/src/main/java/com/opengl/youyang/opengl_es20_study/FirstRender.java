@@ -42,13 +42,13 @@ public class FirstRender implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         //当surface被创建的时候GlsurfaceView会运行这个方法。这表示在应用程序第一次运行时，设备被唤醒时，或者从其他activity备切换回来时 都有可能执行这个方法。
-        GLES20.glClearColor(0.0f, 0.5f, 0.5f, 0.f);
+        GLES20.glClearColor(0.0f, 0.0f, 0.5f, 0.5f);
         table=new Table();
         mallet=new Mallet();
         textureShaderProgram=new TextureShaderProgram(context);
         colorShaderProgram=new ColorShaderProgram(context);
 
-        texture= TextureHelper.loadTexture(context,R.drawable.grass);
+        texture= TextureHelper.loadTexture(context,R.drawable.ic_launche);
     }
 
     @Override
@@ -85,7 +85,6 @@ public class FirstRender implements GLSurfaceView.Renderer {
         colorShaderProgram.setUniforms(projectionMarix);
         mallet.bindData(colorShaderProgram);
         mallet.draw();
-
 
     }
 }
