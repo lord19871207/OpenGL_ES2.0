@@ -48,7 +48,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         textureShaderProgram=new TextureShaderProgram(context);
         colorShaderProgram=new ColorShaderProgram(context);
 
-        texture= TextureHelper.loadTexture(context,R.drawable.ic_launche);
+        texture= TextureHelper.loadTexture(context,R.drawable.grass);
     }
 
     @Override

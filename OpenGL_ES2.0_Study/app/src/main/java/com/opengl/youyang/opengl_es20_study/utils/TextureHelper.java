@@ -28,7 +28,7 @@ public class TextureHelper {
         final BitmapFactory.Options options=new BitmapFactory.Options();
         options.inScaled=false;
         Bitmap bitmap =BitmapFactory.decodeResource(context.getResources(),resourceId,options);
-        //bitmap=getTexture(bitmap);
+        bitmap=getTexture(bitmap);
 
         if(bitmap==null){
             if(LogConfig.ON){
