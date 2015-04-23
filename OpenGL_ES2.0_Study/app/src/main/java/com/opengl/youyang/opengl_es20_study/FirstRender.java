@@ -12,6 +12,7 @@ import com.opengl.youyang.opengl_es20_study.object.Puck;
 import com.opengl.youyang.opengl_es20_study.object.Table;
 import com.opengl.youyang.opengl_es20_study.programs.ColorShaderProgram;
 import com.opengl.youyang.opengl_es20_study.programs.TextureShaderProgram;
+import com.opengl.youyang.opengl_es20_study.utils.Geometry;
 import com.opengl.youyang.opengl_es20_study.utils.MatrixHelper;
 import com.opengl.youyang.opengl_es20_study.utils.TextureHelper;
 
@@ -41,6 +42,9 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     private int texture;
 
+    private boolean malletPressed=false;
+    private Geometry.Point blueMalletPosition;
+
     public FirstRender(Context context) {
         this.context = context;
     }
@@ -57,6 +61,8 @@ public class FirstRender implements GLSurfaceView.Renderer {
         colorShaderProgram=new ColorShaderProgram(context);
 
         texture= TextureHelper.loadTexture(context,R.drawable.grass);
+        blueMalletPosition =new Geometry.Point(0f,mallet.height/2f,0.4f);
+
     }
 
     @Override
@@ -114,7 +120,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         positionObjectInScene(0f, mallet.height / 2f, 0.4f);
         colorShaderProgram.useProgram();
         colorShaderProgram.setUniforms(modelViewProjectionMatrix,0f,0f,1f);
-        mallet.bindData(colorShaderProgram);
+//        mallet.bindData(colorShaderProgram);
         mallet.draw();
 
         positionObjectInScene(0f,puck.height/2f,0f);
@@ -135,5 +141,14 @@ public class FirstRender implements GLSurfaceView.Renderer {
         Matrix.setIdentityM(modelMatrix,0);
         Matrix.translateM(modelMatrix, 0, x, y, z);
         Matrix.multiplyMM(modelViewProjectionMatrix,0,viewProjectionMatrix,0,modelMatrix,0);
+    }
+
+
+    public void handleTouchPress(float normalizedX,float normalizedY){
+
+    }
+
+    public void handleTouchDrag(float normalizedX,float normalizedY){
+
     }
 }

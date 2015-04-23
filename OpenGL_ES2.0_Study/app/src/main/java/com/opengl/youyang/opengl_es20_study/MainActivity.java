@@ -9,14 +9,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
+
+import com.opengl.youyang.opengl_es20_study.utils.Geometry;
 
 
 public class MainActivity extends Activity {
 
     private GLSurfaceView glSurfaceView;
     private boolean renderSet = false;
-
 
     @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
@@ -25,10 +28,42 @@ public class MainActivity extends Activity {
         //第一步就是检验手机是否支持OpenGL ES2.0
         glSurfaceView = new GLSurfaceView(this);
         final boolean isSuppotES2=isSupportES2();
+        final FirstRender render=new FirstRender(this);
         if(isSuppotES2){
             glSurfaceView.setEGLContextClientVersion(2);
-            glSurfaceView.setRenderer(new FirstRender(this));//设置渲染器
+            glSurfaceView.setRenderer(render);//设置渲染器
             renderSet=true;
+
+            glSurfaceView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                  if(motionEvent!=null){
+                      //将视图坐标转化为 归一化坐标
+                      final float normalizedX=(motionEvent.getX()/(float)view.getWidth())*2-1;
+                      final float normalizedY=-((motionEvent.getY()/(float)view.getHeight())*2-1);
+
+                      switch (motionEvent.getAction()){
+                          case MotionEvent.ACTION_DOWN:
+                              //需要线程安全
+                              glSurfaceView.queueEvent(new Runnable() {
+                                  @Override
+                                  public void run() {
+                                      render.handleTouchPress(normalizedX,normalizedY);
+                                  }
+                              });
+                              break;
+                          case  MotionEvent.ACTION_MOVE:
+
+                              break;
+                      }
+
+                      return true;
+                  }else{
+                      return false;
+                  }
+
+                };
+            });
         }else{
             Toast.makeText(this,"该手机不支持OpenGL ES 2.0",Toast.LENGTH_LONG).show();
             return;
