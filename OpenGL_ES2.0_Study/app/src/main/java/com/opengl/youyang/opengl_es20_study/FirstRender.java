@@ -45,6 +45,8 @@ public class FirstRender implements GLSurfaceView.Renderer {
     private boolean malletPressed=false;
     private Geometry.Point blueMalletPosition;
 
+    private final float[] invertedViewProjectionMatrix=new float[16];
+
     public FirstRender(Context context) {
         this.context = context;
     }
@@ -70,6 +72,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         //surface尺寸发生变化时执行。 比如横竖屏切换
         GLES20.glViewport(0, 0, i, i1);
         MatrixHelper.perspectiveM(projectionMarix, 45, (float) i / (float) i1, 1f, 10f);
+
         Matrix.setLookAtM(viewMatrix,0,0f,1.2f,2.2f,0f,0f,0f,0f,1f,0f);
 
 
@@ -105,6 +108,8 @@ public class FirstRender implements GLSurfaceView.Renderer {
 //        mallet.draw();
 
         Matrix.multiplyMM(viewProjectionMatrix, 0, projectionMarix, 0, viewMatrix, 0);
+        Matrix.invertM(invertedViewProjectionMatrix, 0, viewProjectionMatrix, 0);
+
         positionTableInScene();
         textureShaderProgram.useProgram();
         textureShaderProgram.setUniforms(modelViewProjectionMatrix, texture);
@@ -117,8 +122,8 @@ public class FirstRender implements GLSurfaceView.Renderer {
         mallet.bindData(colorShaderProgram);
         mallet.draw();
 
-        positionObjectInScene(0f, mallet.height / 2f, 0.4f);
-        colorShaderProgram.useProgram();
+        positionObjectInScene(blueMalletPosition.x, blueMalletPosition.y, blueMalletPosition.z);
+//        colorShaderProgram.useProgram();
         colorShaderProgram.setUniforms(modelViewProjectionMatrix,0f,0f,1f);
 //        mallet.bindData(colorShaderProgram);
         mallet.draw();
@@ -145,10 +150,51 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
 
     public void handleTouchPress(float normalizedX,float normalizedY){
-
+        Geometry.Ray ray=convertNormalized2DPointToRay(normalizedX,normalizedY);
+        Geometry.Sphere sphere=new Geometry.Sphere(new Geometry.Point(
+                blueMalletPosition.x,
+                blueMalletPosition.y,
+                blueMalletPosition.z),
+                mallet.height/2f
+        );
+        malletPressed=Geometry.intersects(sphere,ray);
     }
 
     public void handleTouchDrag(float normalizedX,float normalizedY){
+        if(malletPressed){
+            Geometry.Ray ray=convertNormalized2DPointToRay(normalizedX,normalizedY);
+            Geometry.Plane plane=new Geometry.Plane(new Geometry.Point(0,0,0),new Geometry.Vector(0,1,0));
+            Geometry.Point touchedoint=Geometry.intersectionPoint(ray,plane);
+            blueMalletPosition=new Geometry.Point(touchedoint.x,mallet.height/2f,touchedoint.z);
+        }
+    }
+
+    private Geometry.Ray convertNormalized2DPointToRay(float normalizedX,float normalizedY){
+        final float[] nearPointNdc={normalizedX,normalizedY,-1,1};
+        final float[] farPointNdc={normalizedX,normalizedY,1,1};
+
+        final float[] nearPointWorld=new float[4];
+        final float[] farPointWorld=new float[4];
+
+        //翻转透视投影
+        Matrix.multiplyMV(nearPointWorld,0,invertedViewProjectionMatrix,0,nearPointNdc,0);
+        Matrix.multiplyMV(farPointWorld, 0, invertedViewProjectionMatrix, 0, farPointNdc, 0);
+
+        //反转透视除法
+        divideByW(nearPointWorld);
+        divideByW(farPointWorld);
+
+        Geometry.Point nearPointRay=new Geometry.Point(nearPointWorld[0],nearPointWorld[1],nearPointWorld[2]);
+        Geometry.Point farPointRay=new Geometry.Point(farPointWorld[0],farPointWorld[1],farPointWorld[2]);
+
+        return new Geometry.Ray(nearPointRay,Geometry.vectorBetween(nearPointRay,farPointRay));
+
+    };
+
+    private void divideByW(float[] vector){
+        vector[0]/=vector[3];
+        vector[1]/=vector[3];
+        vector[2]/=vector[3];
 
     }
 }
