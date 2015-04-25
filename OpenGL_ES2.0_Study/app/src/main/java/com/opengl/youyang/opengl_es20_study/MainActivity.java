@@ -53,7 +53,12 @@ public class MainActivity extends Activity {
                               });
                               break;
                           case  MotionEvent.ACTION_MOVE:
-
+                                glSurfaceView.queueEvent(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        render.handleTouchDrag(normalizedX,normalizedY);
+                                    }
+                                });
                               break;
                       }
 
