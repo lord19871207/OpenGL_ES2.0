@@ -126,7 +126,7 @@ public class ObjectBuilder {
         ObjectBuilder builder=new ObjectBuilder(size);
         float baseHeight=height*0.25f;
         Geometry.Circle baseCircle=new Geometry.Circle(center.translateY(-baseHeight),radius);
-        Geometry.Cylinder baseCylinder=new Geometry.Cylinder(baseCircle.center.translateY(-baseHeight/2f),radius,height);
+        Geometry.Cylinder baseCylinder=new Geometry.Cylinder(baseCircle.center.translateY(-baseHeight/2f),radius,baseHeight);
 
         builder.appendCircle(baseCircle, numPoints);
         builder.appendCylinder(baseCylinder,numPoints);
