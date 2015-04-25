@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Mallet {
     private static final int POSITION_COMPONENT_COUNT = 3;
-    private final float radius;
+    public final float radius;
     public final float height;
 
     private final VertexArray vertexArray;
