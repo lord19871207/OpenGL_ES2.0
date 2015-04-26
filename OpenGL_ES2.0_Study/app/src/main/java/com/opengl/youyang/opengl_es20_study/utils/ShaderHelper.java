@@ -19,7 +19,7 @@ public class ShaderHelper {
     }
 
     private static int compileShader(int type ,String shaderCode){
-        //创建着色器
+        //创建着色器 获取着色器对象的id
         final int shaderObjectId=GLES20.glCreateShader(type);
         if(shaderObjectId==0){
             if(LogConfig.ON){
@@ -54,6 +54,7 @@ public class ShaderHelper {
             }
             return 0;
         }
+        //绑定顶点着色器和片元着色器
         GLES20.glAttachShader(programObjectId,vertexShaderId);
         GLES20.glAttachShader(programObjectId, fragmentShaderId);
 
