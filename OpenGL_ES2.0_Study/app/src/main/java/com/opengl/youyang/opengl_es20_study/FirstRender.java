@@ -35,6 +35,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
     private final float nearBound=0.8f;
 
     private Geometry.Point previousBlueMalletPosition;
+    private Geometry.Point previousRedMalletPosition;
     private Geometry.Point puckPosition;
     private Geometry.Vector puckVector;;
 
@@ -52,8 +53,11 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     private int texture;
 
-    private boolean malletPressed=false;
+    private boolean blueMalletPressed =false;
+    private boolean redMalletPressed =false;
+
     private Geometry.Point blueMalletPosition;
+    private Geometry.Point redMalletPosition;
 
     private final float[] invertedViewProjectionMatrix=new float[16];
 
@@ -77,6 +81,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
         texture= TextureHelper.loadTexture(context,R.drawable.grass);
         blueMalletPosition =new Geometry.Point(0f,mallet.height/2f,0.4f);
+        redMalletPosition=new Geometry.Point(0f,mallet.height/2f,-0.4f);
 
     }
 
@@ -116,16 +121,16 @@ public class FirstRender implements GLSurfaceView.Renderer {
         table.bindData(textureShaderProgram);
         table.draw();
 
-        positionObjectInScene(0f, mallet.height / 2f, -0.4f);
+//        positionObjectInScene(0f, mallet.height / 2f, -0.4f);
+        positionObjectInScene(redMalletPosition.x, redMalletPosition.y, redMalletPosition.z);
         colorShaderProgram.useProgram();
         colorShaderProgram.setUniforms(modelViewProjectionMatrix, 1f, 0f, 0f);
         mallet.bindData(colorShaderProgram);
         mallet.draw();
-
         positionObjectInScene(blueMalletPosition.x, blueMalletPosition.y, blueMalletPosition.z);
-//        colorShaderProgram.useProgram();
+
+
         colorShaderProgram.setUniforms(modelViewProjectionMatrix,0f,0f,1f);
-//        mallet.bindData(colorShaderProgram);
         mallet.draw();
 
         positionObjectInScene(puckPosition.x,puckPosition.y,puckPosition.z);
@@ -157,12 +162,23 @@ public class FirstRender implements GLSurfaceView.Renderer {
                 blueMalletPosition.z),
                 mallet.height/2f
         );
-        malletPressed=Geometry.intersects(sphere,ray);
+
+        Geometry.Sphere redphere=new Geometry.Sphere(new Geometry.Point(
+                redMalletPosition.x,
+                redMalletPosition.y,
+                redMalletPosition.z),
+                mallet.height/2f
+        );
+
+
+        blueMalletPressed =Geometry.intersects(sphere,ray);
+        redMalletPressed =Geometry.intersects(redphere,ray);
     }
 
     public void handleTouchDrag(float normalizedX,float normalizedY){
         previousBlueMalletPosition=blueMalletPosition;
-        if(malletPressed){
+        previousRedMalletPosition=redMalletPosition;
+        if(blueMalletPressed){
             Geometry.Ray ray=convertNormalized2DPointToRay(normalizedX,normalizedY);
             Geometry.Plane plane=new Geometry.Plane(new Geometry.Point(0,0,0),new Geometry.Vector(0,1,0));
             Geometry.Point touchedoint=Geometry.intersectionPoint(ray,plane);
@@ -174,10 +190,29 @@ public class FirstRender implements GLSurfaceView.Renderer {
                 puckVector=Geometry.vectorBetween(previousBlueMalletPosition,blueMalletPosition);
             }
         }
+
+        if(redMalletPressed){
+            Geometry.Ray ray=convertNormalized2DPointToRay(normalizedX,normalizedY);
+            Geometry.Plane plane=new Geometry.Plane(new Geometry.Point(0,0,0),new Geometry.Vector(0,1,0));
+            Geometry.Point touchedoint=Geometry.intersectionPoint(ray,plane);
+            redMalletPosition=new Geometry.Point(clamp(touchedoint.x,leftBound+mallet.radius,rightBound-mallet.radius)
+                    ,mallet.height/2f,clampRed(touchedoint.z,0-mallet.radius,farBound+mallet.radius));
+
+            float distance=Geometry.vectorBetween(redMalletPosition,puckPosition).length();
+            if (distance<(puck.radius+mallet.radius)){
+                puckVector=Geometry.vectorBetween(previousRedMalletPosition,redMalletPosition);
+            }
+        }
+
+
     }
 
     private float clamp(float value ,float min,float max){
         return Math.min(max,Math.max(value,min));
+    }
+
+    private float clampRed(float value ,float min,float max){
+        return Math.max(max, Math.min(value, min));
     }
 
     private Geometry.Ray convertNormalized2DPointToRay(float normalizedX,float normalizedY){
