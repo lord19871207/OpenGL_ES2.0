@@ -14,6 +14,9 @@ public class ShaderProgram {
     protected static final String U_MATRIX = "u_Matrix";
     protected static final String U_TEXTURE_UNIT = "u_TextureUnit";
     protected static final String U_COLOR = "u_Color";
+    protected static final String U_TIME = "u_Time";
+//    protected static final String U_COLOR = "u_Color";
+
 
 
     //attribute常量
@@ -21,12 +24,16 @@ public class ShaderProgram {
     protected static final String A_COLOR = "a_Color";
     protected static final String A_TEXTURE_COORDINATES = "a_TextureCoordinates";
 
+    protected static final String A_DIRECTION_VECTOR = "a_DirectionVector";
+    protected static final String A_PARTICLE_STARTTIME = "a_ParticleStartTime";
+
     protected final int program;
 
     protected ShaderProgram(Context context, int vertexShaderResourceId, int fragmentShaderResourceId) {
         program = ShaderHelper.buildProgram(TextResourceReader.readTextResourceFromRaw(context,
                 vertexShaderResourceId), TextResourceReader.readTextResourceFromRaw(context,
                 fragmentShaderResourceId));
+
     }
 
     public void useProgram(){
