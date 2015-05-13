@@ -15,9 +15,6 @@ public class ShaderProgram {
     protected static final String U_TEXTURE_UNIT = "u_TextureUnit";
     protected static final String U_COLOR = "u_Color";
     protected static final String U_TIME = "u_Time";
-//    protected static final String U_COLOR = "u_Color";
-
-
 
     //attribute常量
     protected static final String A_POSITION = "a_Position";
@@ -30,6 +27,7 @@ public class ShaderProgram {
     protected final int program;
 
     protected ShaderProgram(Context context, int vertexShaderResourceId, int fragmentShaderResourceId) {
+        //获取programId
         program = ShaderHelper.buildProgram(TextResourceReader.readTextResourceFromRaw(context,
                 vertexShaderResourceId), TextResourceReader.readTextResourceFromRaw(context,
                 fragmentShaderResourceId));
