@@ -45,17 +45,18 @@ public class FirstRender implements GLSurfaceView.Renderer {
         //当surface被创建的时候GlsurfaceView会运行这个方法。这表示在应用程序第一次运行时，设备被唤醒时，或者从其他activity备切换回来时 都有可能执行这个方法。
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
+        final float angleVar=5f;
+        final float speedVar=1f;
+
         particleShaderProgram =new ParticleShaderProgram(context);
         particleSystem=new ParticleSystem(10000);
         globalStartTime=System.nanoTime();
 
         final Geometry.Vector particleDirection=new Geometry.Vector(0f,0.5f,0f);
 
-        redParticleShooter=new ParticleShooter(new Geometry.Point(-1f,0f,0f),particleDirection, Color.rgb(255,50,5));
-        greenParticleShooter=new ParticleShooter(new Geometry.Point(0f,0f,0f),particleDirection, Color.rgb(25,255,25));
-        blueParticleShooter=new ParticleShooter(new Geometry.Point(1f,0f,0f),particleDirection, Color.rgb(5,50,255));
-
-
+        redParticleShooter=new ParticleShooter(new Geometry.Point(-1f,0f,0f),particleDirection, Color.rgb(255,50,5),angleVar,speedVar);
+        greenParticleShooter=new ParticleShooter(new Geometry.Point(0f,0f,0f),particleDirection, Color.rgb(25,255,25),angleVar,speedVar);
+        blueParticleShooter=new ParticleShooter(new Geometry.Point(1f,0f,0f),particleDirection, Color.rgb(5,50,255),angleVar,speedVar);
 
     }
 
@@ -80,7 +81,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         blueParticleShooter.addParticles(particleSystem,currentTime,5);
 
         particleShaderProgram.useProgram();
-        particleShaderProgram.setUniforms(viewProjectionMatrix,currentTime);
+        particleShaderProgram.setUniforms(viewProjectionMatrix, currentTime);
         particleSystem.bindData(particleShaderProgram);
         particleSystem.draw();
     }
