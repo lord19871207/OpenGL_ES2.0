@@ -78,7 +78,11 @@ public class FirstRender implements GLSurfaceView.Renderer {
         redParticleShooter.addParticles(particleSystem,currentTime,5);
         greenParticleShooter.addParticles(particleSystem,currentTime,5);
         blueParticleShooter.addParticles(particleSystem,currentTime,5);
-        
+
+        particleShaderProgram.useProgram();
+        particleShaderProgram.setUniforms(viewProjectionMatrix,currentTime);
+        particleSystem.bindData(particleShaderProgram);
+        particleSystem.draw();
     }
 
 
