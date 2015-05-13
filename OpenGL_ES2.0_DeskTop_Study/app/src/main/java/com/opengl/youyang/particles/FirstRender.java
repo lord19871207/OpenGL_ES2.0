@@ -45,6 +45,8 @@ public class FirstRender implements GLSurfaceView.Renderer {
         //当surface被创建的时候GlsurfaceView会运行这个方法。这表示在应用程序第一次运行时，设备被唤醒时，或者从其他activity备切换回来时 都有可能执行这个方法。
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
+        GLES20.glEnable(GLES20.GL_BLEND);
+        GLES20.glBlendFunc(GLES20.GL_ONE,GLES20.GL_ONE);
         final float angleVar=5f;
         final float speedVar=1f;
 
