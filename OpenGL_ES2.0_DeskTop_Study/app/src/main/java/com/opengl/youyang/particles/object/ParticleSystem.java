@@ -56,8 +56,8 @@ public class ParticleSystem {
         particles[currentOffset++] = Color.blue(color) / 255f;
 
         particles[currentOffset++] = direction.x;
-        particles[currentOffset++] = direction.x;
-        particles[currentOffset++] = direction.x;
+        particles[currentOffset++] = direction.y;
+        particles[currentOffset++] = direction.z;
 
         particles[currentOffset++] = particleStartTime;
 
