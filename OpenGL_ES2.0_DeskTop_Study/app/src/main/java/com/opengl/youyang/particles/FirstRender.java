@@ -12,6 +12,7 @@ import com.opengl.youyang.particles.object.ParticleSystem;
 import com.opengl.youyang.particles.programs.ParticleShaderProgram;
 import com.opengl.youyang.particles.utils.Geometry;
 import com.opengl.youyang.particles.utils.MatrixHelper;
+import com.opengl.youyang.particles.utils.TextureHelper;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -33,7 +34,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     private long globalStartTime;
 
-
+    private int texture;
 
 
     public FirstRender(Context context) {
@@ -48,7 +49,9 @@ public class FirstRender implements GLSurfaceView.Renderer {
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glBlendFunc(GLES20.GL_ONE,GLES20.GL_ONE);
         final float angleVar=5f;
-        final float speedVar=1f;
+        final float speedVar=2f;
+
+        texture= TextureHelper.loadTexture(context,R.drawable.particle_texture);
 
         particleShaderProgram =new ParticleShaderProgram(context);
         particleSystem=new ParticleSystem(10000);
@@ -83,7 +86,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         blueParticleShooter.addParticles(particleSystem,currentTime,5);
 
         particleShaderProgram.useProgram();
-        particleShaderProgram.setUniforms(viewProjectionMatrix, currentTime);
+        particleShaderProgram.setUniforms(viewProjectionMatrix, currentTime,texture);
         particleSystem.bindData(particleShaderProgram);
         particleSystem.draw();
     }
