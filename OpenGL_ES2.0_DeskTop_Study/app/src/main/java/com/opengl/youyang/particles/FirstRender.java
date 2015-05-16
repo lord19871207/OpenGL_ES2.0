@@ -10,6 +10,7 @@ import android.opengl.Matrix;
 import com.opengl.youyang.particles.object.ParticleShooter;
 import com.opengl.youyang.particles.object.ParticleSystem;
 import com.opengl.youyang.particles.programs.ParticleShaderProgram;
+import com.opengl.youyang.particles.programs.SkyboxShaderProgram;
 import com.opengl.youyang.particles.utils.Geometry;
 import com.opengl.youyang.particles.utils.MatrixHelper;
 import com.opengl.youyang.particles.utils.TextureHelper;
@@ -27,6 +28,9 @@ public class FirstRender implements GLSurfaceView.Renderer {
     private final float[] viewProjectionMatrix=new float[16];
 
     private ParticleShaderProgram particleShaderProgram;
+    private SkyboxShaderProgram skyboxShaderProgram;
+    private final int uTextureUnitLocation;
+    private final int aPositionLocation;
     private ParticleSystem particleSystem;
     private ParticleShooter redParticleShooter;
     private ParticleShooter greenParticleShooter;
