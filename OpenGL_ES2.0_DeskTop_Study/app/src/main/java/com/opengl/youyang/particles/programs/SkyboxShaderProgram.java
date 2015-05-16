@@ -31,6 +31,6 @@ public class SkyboxShaderProgram extends ShaderProgram{
     }
 
     public int getPositionAttributeLocation(){
-        return aPositionLocation；
+        return aPositionLocation;
     }
 }
