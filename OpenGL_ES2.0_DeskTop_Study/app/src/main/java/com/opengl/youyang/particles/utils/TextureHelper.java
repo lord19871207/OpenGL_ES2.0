@@ -8,37 +8,40 @@ import android.opengl.GLES20;
 import android.opengl.GLUtils;
 import android.util.Log;
 
+import java.util.logging.Logger;
+
 /**
  * Created by youyang on 15-4-17.
  */
 public class TextureHelper {
-    public static final String TAG="TextureHelper";
-    public static int loadTexture(Context context,int resourceId){
-        final int[] textureObjectIds=new int[1];
+    public static final String TAG = "TextureHelper";
 
-        GLES20.glGenTextures(1,textureObjectIds,0);
-        if(textureObjectIds[0]==0){
-            if(LogConfig.ON){
-                Log.w(TAG,"无法生成一个纹理对象");
+    public static int loadTexture(Context context, int resourceId) {
+        final int[] textureObjectIds = new int[1];
+
+        GLES20.glGenTextures(1, textureObjectIds, 0);
+        if (textureObjectIds[0] == 0) {
+            if (LogConfig.ON) {
+                Log.w(TAG, "无法生成一个纹理对象");
             }
             return 0;
         }
 
-        final BitmapFactory.Options options=new BitmapFactory.Options();
-        options.inScaled=false;
-        Bitmap bitmap =BitmapFactory.decodeResource(context.getResources(),resourceId,options);
-        bitmap=getTexture(bitmap);
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = false;
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
+        bitmap = getTexture(bitmap);
 
-        if(bitmap==null){
-            if(LogConfig.ON){
-                Log.w(TAG,"图片资源无法加载");
+        if (bitmap == null) {
+            if (LogConfig.ON) {
+                Log.w(TAG, "图片资源无法加载");
             }
-            GLES20.glDeleteTextures(1,textureObjectIds,0);
+            GLES20.glDeleteTextures(1, textureObjectIds, 0);
             return 0;
         }
 
 
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,textureObjectIds[0]);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureObjectIds[0]);
 
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR_MIPMAP_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
@@ -46,7 +49,7 @@ public class TextureHelper {
         bitmap.recycle();
         GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
         //解除绑定
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
         return textureObjectIds[0];
     }
@@ -91,4 +94,54 @@ public class TextureHelper {
         float texY = (float) h / newH;
         return bitmapTex;
     }
+
+    public static int loadCubeMap(Context context, int[] cubeResource) {
+        final int[] textureObjectIds = new int[1];
+        GLES20.glGenTextures(1, textureObjectIds, 0);
+        if (textureObjectIds[0] == 0) {
+            if (LogConfig.ON) {
+                Log.w(TAG, "无法生成一个纹理对象");
+            }
+            return 0;
+        }
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inScaled = false;
+        final Bitmap[] cubeBitmaps = new Bitmap[6];
+
+        for (int i = 0; i < 6; i++) {
+            cubeBitmaps[i] = BitmapFactory.decodeResource(context.getResources(), cubeResource[i], options);
+
+            if (cubeBitmaps[i] == null) {
+                if (LogConfig.ON) {
+                    Log.w(TAG, "ResourceId:" + cubeResource[i] + "无法加载纹理");
+                }
+                GLES20.glDeleteTextures(1, textureObjectIds, 0);
+                return 0;
+            }
+        }
+
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureObjectIds[0]);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, cubeBitmaps[0], 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, cubeBitmaps[1], 0);
+
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, cubeBitmaps[2], 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, cubeBitmaps[3], 0);
+
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, cubeBitmaps[4], 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, cubeBitmaps[5], 0);
+
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+
+        for (Bitmap bitmap : cubeBitmaps) {
+            bitmap.recycle();
+            ;
+        }
+
+        return textureObjectIds[0];
+
+    }
+
 }
