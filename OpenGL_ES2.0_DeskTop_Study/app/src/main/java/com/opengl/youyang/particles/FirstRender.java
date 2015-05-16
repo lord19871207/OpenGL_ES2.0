@@ -92,9 +92,6 @@ public class FirstRender implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         drawSkybox();
-
-
-
     }
 
 
@@ -117,7 +114,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
     public void drawParticles(){
         float currentTime= (System.nanoTime()-globalStartTime)/1000000000f;
         redParticleShooter.addParticles(particleSystem,currentTime,1);
-        greenParticleShooter.addParticles(particleSystem,currentTime,1);
+        greenParticleShooter.addParticles(particleSystem, currentTime, 1);
         blueParticleShooter.addParticles(particleSystem, currentTime, 1);
 
         Matrix.setIdentityM(viewMatrix, 0);
@@ -129,8 +126,10 @@ public class FirstRender implements GLSurfaceView.Renderer {
         GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE);
 
         particleShaderProgram.useProgram();
-        particleShaderProgram.setUniforms(viewProjectionMatrix, currentTime,texture);
+        particleShaderProgram.setUniforms(viewProjectionMatrix, currentTime, texture);
         particleSystem.bindData(particleShaderProgram);
         particleSystem.draw();
+
+        GLES20.glDisable(GLES20.GL_BLEND);
     }
 }

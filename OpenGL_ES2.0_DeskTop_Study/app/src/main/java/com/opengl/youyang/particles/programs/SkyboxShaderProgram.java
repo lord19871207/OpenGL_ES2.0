@@ -18,7 +18,7 @@ public class SkyboxShaderProgram extends ShaderProgram{
 
         uMatrixLocation= GLES20.glGetUniformLocation(program,U_MATRIX);
         uTextureUnitLocation= GLES20.glGetUniformLocation(program,U_TEXTURE_UNIT);
-        aPositionLocation= GLES20.glGetUniformLocation(program,A_POSITION);
+        aPositionLocation= GLES20.glGetAttribLocation(program,A_POSITION);
     }
 
     public void setUniforms(float[] matrix ,int textureId){
