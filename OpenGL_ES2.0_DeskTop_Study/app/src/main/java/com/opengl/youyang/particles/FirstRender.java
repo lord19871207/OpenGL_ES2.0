@@ -40,7 +40,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     private long globalStartTime;
 
-    private int texture;
+    private int particleTexture;
 
 
     public FirstRender(Context context) {
@@ -54,7 +54,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
 
         final float angleVar=5f;
-        final float speedVar=2f;
+        final float speedVar=1.5f;
 
         skyboxShaderProgram=new SkyboxShaderProgram(context);
         skyBox=new SkyBox();
@@ -63,7 +63,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         });
 
 
-        texture= TextureHelper.loadTexture(context,R.drawable.particle_texture);
+        particleTexture= TextureHelper.loadTexture(context,R.drawable.particle_texture);
 
         particleShaderProgram =new ParticleShaderProgram(context);
         particleSystem=new ParticleSystem(10000);
@@ -92,6 +92,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         drawSkybox();
+        drawParticles();
     }
 
 
@@ -126,7 +127,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         GLES20.glBlendFunc(GLES20.GL_ONE, GLES20.GL_ONE);
 
         particleShaderProgram.useProgram();
-        particleShaderProgram.setUniforms(viewProjectionMatrix, currentTime, texture);
+        particleShaderProgram.setUniforms(viewProjectionMatrix, currentTime, particleTexture);
         particleSystem.bindData(particleShaderProgram);
         particleSystem.draw();
 

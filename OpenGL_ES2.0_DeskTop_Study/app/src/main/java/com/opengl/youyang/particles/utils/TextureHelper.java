@@ -109,7 +109,7 @@ public class TextureHelper {
         final Bitmap[] cubeBitmaps = new Bitmap[6];
 
         for (int i = 0; i < 6; i++) {
-            cubeBitmaps[i] = BitmapFactory.decodeResource(context.getResources(), cubeResource[i], options);
+            cubeBitmaps[i] = getTexture(BitmapFactory.decodeResource(context.getResources(), cubeResource[i], options));
 
             if (cubeBitmaps[i] == null) {
                 if (LogConfig.ON) {
