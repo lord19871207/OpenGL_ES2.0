@@ -30,7 +30,7 @@ public class TextureHelper {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
-        bitmap = getTexture(bitmap);
+//        bitmap = getTexture(bitmap);
 
         if (bitmap == null) {
             if (LogConfig.ON) {
@@ -73,27 +73,27 @@ public class TextureHelper {
      * new Bitmap using default return statement + original texture coordinates
      * are stored into RectF.
      */
-    private static Bitmap getTexture(Bitmap bitmap) {
-        // Bitmap original size.
-        int w = bitmap.getWidth();
-        int h = bitmap.getHeight();
-        // Bitmap size expanded to next power of two. This is done due to
-        // the requirement on many devices, texture width and height should
-        // be power of two.
-        int newW = getNextHighestPO2(w);
-        int newH = getNextHighestPO2(h);
-
-        // TODO: Is there another way to create a bigger Bitmap and copy
-        // original Bitmap to it more efficiently? Immutable bitmap anyone?
-        Bitmap bitmapTex = Bitmap.createBitmap(newW, newH, bitmap.getConfig());
-        Canvas c = new Canvas(bitmapTex);
-        c.drawBitmap(bitmap, 0, 0, null);
-
-        // Calculate final texture coordinates.
-        float texX = (float) w / newW;
-        float texY = (float) h / newH;
-        return bitmapTex;
-    }
+//    private static Bitmap getTexture(Bitmap bitmap) {
+//        // Bitmap original size.
+//        int w = bitmap.getWidth();
+//        int h = bitmap.getHeight();
+//        // Bitmap size expanded to next power of two. This is done due to
+//        // the requirement on many devices, texture width and height should
+//        // be power of two.
+//        int newW = getNextHighestPO2(w);
+//        int newH = getNextHighestPO2(h);
+//
+//        // TODO: Is there another way to create a bigger Bitmap and copy
+//        // original Bitmap to it more efficiently? Immutable bitmap anyone?
+//        Bitmap bitmapTex = Bitmap.createBitmap(newW, newH, bitmap.getConfig());
+//        Canvas c = new Canvas(bitmapTex);
+//        c.drawBitmap(bitmap, 0, 0, null);
+//
+//        // Calculate final texture coordinates.
+//        float texX = (float) w / newW;
+//        float texY = (float) h / newH;
+//        return bitmapTex;
+//    }
 
     public static int loadCubeMap(Context context, int[] cubeResource) {
         final int[] textureObjectIds = new int[1];
@@ -109,7 +109,7 @@ public class TextureHelper {
         final Bitmap[] cubeBitmaps = new Bitmap[6];
 
         for (int i = 0; i < 6; i++) {
-            cubeBitmaps[i] = getTexture(BitmapFactory.decodeResource(context.getResources(), cubeResource[i], options));
+            cubeBitmaps[i] = BitmapFactory.decodeResource(context.getResources(), cubeResource[i], options);
 
             if (cubeBitmaps[i] == null) {
                 if (LogConfig.ON) {

@@ -17,5 +17,5 @@ void main() {
     vec3 currentPosition=a_Position+(a_DirectionVector*v_ElapsedTime);
     currentPosition.y-=gravityFactor;
     gl_Position=u_Matrix*vec4(currentPosition,1.0);
-    gl_PointSize=10.0;
+    gl_PointSize=30.0;
 }
