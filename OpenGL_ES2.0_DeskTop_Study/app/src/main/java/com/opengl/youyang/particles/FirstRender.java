@@ -107,7 +107,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         Matrix.setIdentityM(viewMatrix, 0);
         Matrix.rotateM(viewMatrix, 0, -yRotation, 1f, 0f, 0f);
         Matrix.rotateM(viewMatrix, 0, -xRotation, 0f, 1f, 0f);
-        Matrix.translateM(viewMatrix,0,0f,-1.5f,-5f);
+//        Matrix.translateM(viewMatrix,0,0f,-1.5f,-5f);
         Matrix.multiplyMM(viewProjectionMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
         skyboxShaderProgram.useProgram();
         skyboxShaderProgram.setUniforms(viewProjectionMatrix, skyboxTexture);

@@ -61,7 +61,6 @@ public class MainActivity extends Activity {
                                       render.handleTouchDrag(deltaX,deltaY);
                                   }
                               });
-                              break;
                       }
 
                       return true;
