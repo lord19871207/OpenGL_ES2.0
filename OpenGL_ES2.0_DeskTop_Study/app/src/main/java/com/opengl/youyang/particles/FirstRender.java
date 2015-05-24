@@ -105,9 +105,12 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     public void drawSkybox(){
         Matrix.setIdentityM(viewMatrix, 0);
-        Matrix.multiplyMM(viewProjectionMatrix,0,projectionMatrix,0,viewMatrix,0);
+        Matrix.rotateM(viewMatrix, 0, -yRotation, 1f, 0f, 0f);
+        Matrix.rotateM(viewMatrix, 0, -xRotation, 0f, 1f, 0f);
+        Matrix.translateM(viewMatrix,0,0f,-1.5f,-5f);
+        Matrix.multiplyMM(viewProjectionMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
         skyboxShaderProgram.useProgram();
-        skyboxShaderProgram.setUniforms(viewProjectionMatrix,skyboxTexture);
+        skyboxShaderProgram.setUniforms(viewProjectionMatrix, skyboxTexture);
         skyBox.binfData(skyboxShaderProgram);
         skyBox.draw();
     }
@@ -129,8 +132,24 @@ public class FirstRender implements GLSurfaceView.Renderer {
         particleShaderProgram.useProgram();
         particleShaderProgram.setUniforms(viewProjectionMatrix, currentTime, particleTexture);
         particleSystem.bindData(particleShaderProgram);
+
         particleSystem.draw();
 
         GLES20.glDisable(GLES20.GL_BLEND);
     }
+
+
+    private float xRotation,yRotation;
+    public void handleTouchDrag(float deltaX, float deltaY) {
+        xRotation+=deltaX/16f;
+        yRotation+=deltaY/16f;
+
+        if(yRotation<-90){
+            yRotation=-90;
+        }else if(yRotation>90){
+            yRotation=90;
+        }
+    }
+
+
 }

@@ -13,6 +13,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.opengl.youyang.particles.object.ParticleSystem;
+
 
 public class MainActivity extends Activity {
 
@@ -33,6 +35,7 @@ public class MainActivity extends Activity {
             renderSet=true;
 
             glSurfaceView.setOnTouchListener(new View.OnTouchListener() {
+                float previousX,previousY;
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                   if(motionEvent!=null){
@@ -43,8 +46,21 @@ public class MainActivity extends Activity {
                       switch (motionEvent.getAction()){
                           case MotionEvent.ACTION_DOWN:
                               //需要线程安全
+                              previousX= motionEvent.getX();
+                              previousY=motionEvent.getY();
                               break;
                           case  MotionEvent.ACTION_MOVE:
+                              final float deltaX=motionEvent.getX()-previousX;
+                              final float deltaY=motionEvent.getY()-previousY;
+                              previousX=motionEvent.getX();
+                              previousY=motionEvent.getY();
+
+                              glSurfaceView.queueEvent(new Runnable() {
+                                  @Override
+                                  public void run() {
+                                      render.handleTouchDrag(deltaX,deltaY);
+                                  }
+                              });
                               break;
                       }
 
