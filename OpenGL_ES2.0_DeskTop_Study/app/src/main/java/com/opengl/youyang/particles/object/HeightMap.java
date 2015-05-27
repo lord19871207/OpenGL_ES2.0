@@ -2,10 +2,13 @@ package com.opengl.youyang.particles.object;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.opengl.GLES20;
+import android.opengl.GLUtils;
 
 import com.opengl.youyang.particles.data.IndexBuffer;
 import com.opengl.youyang.particles.data.VertexArray;
 import com.opengl.youyang.particles.data.VertexBuffer;
+import com.opengl.youyang.particles.programs.HeightMapShaderProgram;
 
 /**
  * Created by youyang on 15-5-26.
@@ -78,4 +81,15 @@ public class HeightMap {
         }
         return  indexData;
     }
+
+    public void bindData(HeightMapShaderProgram heightMapShaderProgram){
+        vertexBuffer.setVertexAttribPointer(0,heightMapShaderProgram.getPositionAttributeLocation(),POSITION_COMPONENT_COUNT,0);
+    }
+
+    public void draw(){
+        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER,indexBuffer.getBufferId());
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, numElements, GLES20.GL_UNSIGNED_SHORT, 0);
+        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER,0);
+    }
+
 }
