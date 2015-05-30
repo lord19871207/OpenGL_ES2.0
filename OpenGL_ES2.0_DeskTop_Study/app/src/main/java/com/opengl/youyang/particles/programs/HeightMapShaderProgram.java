@@ -17,7 +17,7 @@ public class HeightMapShaderProgram extends ShaderProgram{
         aPositionLocation= GLES20.glGetAttribLocation(program,A_POSITION);
     }
 
-    public void setUniforms(float[] matrix ,int textureId){
+    public void setUniforms(float[] matrix ){
         GLES20.glUniformMatrix4fv(uMatrixLocation,1,false, matrix,0);
 
     }
