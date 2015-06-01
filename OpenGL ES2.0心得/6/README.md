@@ -34,12 +34,11 @@ int ten=int（f）； 使用了int构造函数
 
 | 基本类型 | 2D向量 | 3D向量 | 4D向量 | 矩阵类型 |
 | -- | -- | -- | -- | -- |
-| float | vec2 | vec3 | vec4 | mat2  mat3   mat4 mat2x3 mat2x4....|
-| double | dvec2 | dvec3 | dvec4 | dmat2 dmat3  dmat4... |
+| float | vec2 | vec3 | vec4 | mat2  mat3   mat4|
+| double | dvec2 | dvec3 | dvec4 | dmat2 dmat3  dmat4 |
 | int | ivec2 | ivec3 | ivec4 | 4:4 |
 | uint| uvec2 | uvec3| uvec4| 4:5 |
 | bool | bvec2 | bvec3 | bvec4 | 4:6 |
-矩阵范围是从2x2到4x4
 
 向量的构造函数可以用来截短或者加长一个向量，例如：
 ```
@@ -111,6 +110,10 @@ Particle p=Particle(1.0,pos,vel);
 
 #####8.数组
 #####9.存储限制符
+const
+uniform
+attribute
+varying
 
 
 
