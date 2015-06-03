@@ -110,9 +110,12 @@ Particle p=Particle(1.0,pos,vel);
 
 #####8.数组
 #####9.存储限制符
-const
+const 只读
+
 uniform
+
 attribute
+
 varying
 
 
