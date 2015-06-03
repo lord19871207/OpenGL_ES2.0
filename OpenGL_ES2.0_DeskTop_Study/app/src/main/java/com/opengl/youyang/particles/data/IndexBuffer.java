@@ -31,7 +31,7 @@ public class IndexBuffer {
 
         indexArray.position(0);
 
-        GLES20.glBufferData(GLES20.GL_ELEMENT_ARRAY_BUFFER, indexArray.capacity() * Constants.BYTES_PER_FLOAT, indexArray, GLES20.GL_STATIC_DRAW);
+        GLES20.glBufferData(GLES20.GL_ELEMENT_ARRAY_BUFFER, indexArray.capacity() * Constants.BYTES_PER_SHORT, indexArray, GLES20.GL_STATIC_DRAW);
 
         GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER,0);
     }

@@ -1,11 +1,12 @@
 package com.opengl.youyang.particles;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.GLUtils;
 import android.opengl.Matrix;
 
 import com.opengl.youyang.particles.object.HeightMap;
@@ -74,7 +75,9 @@ public class FirstRender implements GLSurfaceView.Renderer {
         skyboxShaderProgram=new SkyboxShaderProgram(context);
 
         heightMapShaderProgram=new HeightMapShaderProgram(context);
-        heightMap=new HeightMap(((BitmapDrawable)context.getResources().getDrawable(R.drawable.heightmap)).getBitmap());
+        Bitmap bt= BitmapFactory.decodeResource(context.getResources(),R.drawable.heightmap);
+        //((BitmapDrawable)context.getResources().getDrawable(R.drawable.heightmap)).getBitmap()
+        heightMap=new HeightMap(bt);
 
         skyBox=new SkyBox();
         skyboxTexture=TextureHelper.loadCubeMap(context,new int[]{
@@ -110,7 +113,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl10) {
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         drawHeightMap();
         drawSkybox();
         drawParticles();

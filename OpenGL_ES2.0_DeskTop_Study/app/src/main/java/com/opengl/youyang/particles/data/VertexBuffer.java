@@ -25,13 +25,14 @@ public class VertexBuffer {
 
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER,buffers[0]);
 
+        //将java层的数据转化到本地内存
         FloatBuffer vertexArray= ByteBuffer.allocateDirect(vertextData.length * Constants.BYTES_PER_FLOAT).order(ByteOrder.nativeOrder())
                 .asFloatBuffer().put(vertextData);
 
         vertexArray.position(0);
-
+        //将本地内存转化到GPU
         GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, vertexArray.capacity() * Constants.BYTES_PER_FLOAT, vertexArray, GLES20.GL_STATIC_DRAW);
-
+        //解除绑定
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER,0);
     }
 

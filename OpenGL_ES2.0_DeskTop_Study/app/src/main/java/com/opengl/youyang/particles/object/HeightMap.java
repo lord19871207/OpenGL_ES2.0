@@ -24,8 +24,9 @@ public class HeightMap {
         width=bitmap.getWidth();
         height=bitmap.getHeight();
 
+
         if(width*height>65536){
-            throw new RuntimeException("高度图太大了");
+            throw new RuntimeException("高度图太大了 宽度："+width+",高度："+height);
         }
         numElements=calculateNumElements();
         vertexBuffer=new VertexBuffer(loadBitmapData(bitmap));
