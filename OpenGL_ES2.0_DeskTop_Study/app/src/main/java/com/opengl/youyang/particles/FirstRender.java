@@ -140,7 +140,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     public void drawSkybox(){
         //把视图矩阵转化为单位矩阵
-        Matrix.setIdentityM(viewMatrix, 0);
+        Matrix.setIdentityM(modelMatrix, 0);
 //        Matrix.rotateM(viewMatrix, 0, -yRotation, 1f, 0f, 0f);
 //        Matrix.rotateM(viewMatrix, 0, -xRotation, 0f, 1f, 0f);
 ////        Matrix.translateM(viewMatrix,0,0f,-1.5f,-5f);
@@ -151,7 +151,8 @@ public class FirstRender implements GLSurfaceView.Renderer {
         skyboxShaderProgram.setUniforms(modelViewProjectionMatrix, skyboxTexture);
         skyBox.binfData(skyboxShaderProgram);
         skyBox.draw();
-        GLES20.glDepthFunc(GLES20.GL_LESS);
+        GLES20.glDepthFunc(GLES20.GL_LEQUAL);
+//        GLES20.glDepthFunc(GLES20.GL_LESS);
     }
 
     public void drawParticles(){
@@ -160,7 +161,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         greenParticleShooter.addParticles(particleSystem, currentTime, 1);
         blueParticleShooter.addParticles(particleSystem, currentTime, 1);
 
-        Matrix.setIdentityM(viewMatrix, 0);
+        Matrix.setIdentityM(modelMatrix, 0);
 
 //        Matrix.translateM(viewMatrix, 0, 0f, -1.5f, -5f);
 //        Matrix.multiplyMM(viewProjectionMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
