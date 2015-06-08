@@ -1,6 +1,8 @@
 # 1.前言
 我曾经在网上搜寻各种关于OpenGL ES2.0的资料，发现关于android中OpenGL ES2.0开发的中文资料少的可怜，而成体系的资料更是凤毛麟角。所以我就动了一些念头，希望将自己学习OpenGL的过程记录下来，帮助到其他希望学习OpenGL的人。在学习的过程中，我也曾经获得其他开源者的帮助，说起来这也算是投桃报李吧，哈哈。
 
+由于这里主要是学习笔记，可能有些地方讲的并不直观，有些地方只做了简要阐述。所以大家也可以在网上先学习一下基础。
+
 网上资源：
 
  <1>[OpenGL ES1.0资料](http://blog.csdn.net/mapdigit/article/details/7526556)，虽然有点老，不过有点是成体系的描述，对于完全没有OpenGL基础的人而言 是个完美过渡。
@@ -13,7 +15,7 @@
 
  <5>[OpenGL官网，英语好的就直接看这个吧](https://www.khronos.org/registry/gles/#specs)
 
- 
+ <6>[意外发现的学习OpenGL ES2.0的好网站。当然仍然需要英文~~](http://www.learnopengles.com/android-lesson-one-getting-started/)
 
 
 
