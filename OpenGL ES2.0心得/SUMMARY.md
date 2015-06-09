@@ -6,5 +6,6 @@
 * [OpenGL ES2.0 的管线（pipeline）](opengl_es20_pipeline/README.md)
 * [图像的本质](4/README.md)
 * [着色器基础](6/README.md)
-* [光照效果](/file_name_should_be_unique.md)
+* [光照效果](file_name_should_be_unique.md)
+* [CPU与GPU的不同](cpugpu/README.md)
 

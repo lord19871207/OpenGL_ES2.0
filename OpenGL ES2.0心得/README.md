@@ -17,7 +17,7 @@
 
  <6>[意外发现的学习OpenGL ES2.0的好网站。当然仍然需要英文~~](http://www.learnopengles.com/android-lesson-one-getting-started/)
 
-
+<7>[依然是着色语言的教程，不过这个内容更丰富](http://www.clockworkcoders.com/oglsl/tutorials.html)
 
 
 
