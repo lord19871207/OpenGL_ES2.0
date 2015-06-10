@@ -17,7 +17,7 @@ public class Circle {
     private VertexArray vertexArray;
     private  float[] VERTEX_DATA;
     int seg;
-    private float r=0.5f;
+    private float r=1f;
 
     public Circle(int seg) {
         this.seg=seg;

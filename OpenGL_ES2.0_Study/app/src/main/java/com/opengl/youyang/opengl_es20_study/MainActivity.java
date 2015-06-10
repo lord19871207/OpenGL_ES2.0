@@ -28,8 +28,8 @@ public class MainActivity extends Activity {
         //第一步就是检验手机是否支持OpenGL ES2.0
         glSurfaceView = new GLSurfaceView(this);
         final boolean isSuppotES2=isSupportES2();
-        final FirstRender render=new FirstRender(this);
-//        final CircleRender render=new CircleRender(this);
+//        final FirstRender render=new FirstRender(this);
+        final CircleRender render=new CircleRender(this);
         if(isSuppotES2){
             glSurfaceView.setEGLContextClientVersion(2);
             glSurfaceView.setRenderer(render);//设置渲染器

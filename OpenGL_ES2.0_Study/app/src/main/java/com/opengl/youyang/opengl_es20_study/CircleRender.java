@@ -42,7 +42,7 @@ public class CircleRender implements Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl10, int i, int i1) {
         GLES20.glViewport(0, 0, i, i1);
-        MatrixHelper.perspectiveM(projectionMarix, 60, (float) i / (float) i1, 1f, 10f);
+        MatrixHelper.perspectiveM(projectionMarix, 45, (float) i / (float) i1, 1f, 5f);
         Matrix.setLookAtM(viewMatrix, 0, 0f, 1.2f, 2.2f, 0f, 0f, 0f, 0f, 1f, 0f);
     }
 
@@ -53,8 +53,9 @@ public class CircleRender implements Renderer {
         Matrix.multiplyMM(viewProjectionMatrix, 0, projectionMarix, 0, viewMatrix, 0);
 
         colorShaderProgram.useProgram();
-//        Matrix.translateM(viewProjectionMatrix,0,0,0,-5f);
-//        Matrix.setIdentityM(viewProjectionMatrix,0);
+        Matrix.setIdentityM(viewMatrix,0);
+        Matrix.translateM(viewProjectionMatrix,0,0,0,-5f);
+//        Matrix.rotateM(viewProjectionMatrix,0,-30f,1f,0f,0f);
         colorShaderProgram.setUniforms(viewProjectionMatrix, 1f, 0f, 0f);
         circle.bindData(colorShaderProgram);
         circle.draw();
