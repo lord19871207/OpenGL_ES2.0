@@ -4,22 +4,24 @@
     <head>
         
         <meta charset="UTF-8">
-        <title>前言 | 1.前言</title>
+        <title>如何告诉OpenGL我们要画什么 | 1.前言</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="我曾经在网上搜寻各种关于OpenGL ES2.0的资料，发现关于android中OpenGL ES2.0开发的中文资料少的可怜，而成体系的资料更是凤毛麟角。所以我就动了一些念头，希望将自己学习OpenGL的过程记录下来，帮助到其他希望学习OpenGL的人。在学习的过程中，我也曾经获得其他开源者的帮助，说起来这也算是投桃报李吧，哈哈。">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 1.0.3">
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
-        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
         
     
     
     
-    <link rel="next" href="./1opengl_es20/README.html" />
+    <link rel="next" href="../opengl_es20_pipeline/README.html" />
     
+    
+    <link rel="prev" href="../1opengl_es20/README.html" />
     
 
         
@@ -27,11 +29,11 @@
     <body>
         
         
-<link rel="stylesheet" href="gitbook/style.css">
+<link rel="stylesheet" href="../gitbook/style.css">
 
 
         
-    <div class="book"  data-level="0" data-basepath="." data-revision="1433994293086">
+    <div class="book"  data-level="2" data-basepath=".." data-revision="1433994293086">
     
 
 <div class="book-summary">
@@ -49,10 +51,10 @@
         
     
         
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
-                    <a href="./index.html">
+                    <a href="../index.html">
                         <i class="fa fa-check"></i>
                         
                          前言
@@ -66,7 +68,7 @@
         <li class="chapter " data-level="1" data-path="1opengl_es20/README.html">
             
                 
-                    <a href="./1opengl_es20/README.html">
+                    <a href="../1opengl_es20/README.html">
                         <i class="fa fa-check"></i>
                         
                             <b>1.</b>
@@ -79,10 +81,10 @@
         </li>
     
         
-        <li class="chapter " data-level="2" data-path="opengl_es/README.html">
+        <li class="chapter active" data-level="2" data-path="opengl_es/README.html">
             
                 
-                    <a href="./opengl_es/README.html">
+                    <a href="../opengl_es/README.html">
                         <i class="fa fa-check"></i>
                         
                             <b>2.</b>
@@ -98,7 +100,7 @@
         <li class="chapter " data-level="3" data-path="opengl_es20_pipeline/README.html">
             
                 
-                    <a href="./opengl_es20_pipeline/README.html">
+                    <a href="../opengl_es20_pipeline/README.html">
                         <i class="fa fa-check"></i>
                         
                             <b>3.</b>
@@ -114,7 +116,7 @@
         <li class="chapter " data-level="4" data-path="4/README.html">
             
                 
-                    <a href="./4/README.html">
+                    <a href="../4/README.html">
                         <i class="fa fa-check"></i>
                         
                             <b>4.</b>
@@ -130,7 +132,7 @@
         <li class="chapter " data-level="5" data-path="6/README.html">
             
                 
-                    <a href="./6/README.html">
+                    <a href="../6/README.html">
                         <i class="fa fa-check"></i>
                         
                             <b>5.</b>
@@ -146,7 +148,7 @@
         <li class="chapter " data-level="6" data-path="file_name_should_be_unique.html">
             
                 
-                    <a href="./file_name_should_be_unique.html">
+                    <a href="../file_name_should_be_unique.html">
                         <i class="fa fa-check"></i>
                         
                             <b>6.</b>
@@ -162,7 +164,7 @@
         <li class="chapter " data-level="7" data-path="cpugpu/README.html">
             
                 
-                    <a href="./cpugpu/README.html">
+                    <a href="../cpugpu/README.html">
                         <i class="fa fa-check"></i>
                         
                             <b>7.</b>
@@ -255,7 +257,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="./" >1.前言</a>
+        <a href="../" >1.前言</a>
     </h1>
 </div>
 
@@ -263,19 +265,45 @@
                 <div class="page-inner">
                 
                 
-                    <section class="normal" id="section-gitbook_5">
+                    <section class="normal" id="section-gitbook_8">
                     
-                        <h1 id="1">1.前言</h1>
-<p>我曾经在网上搜寻各种关于OpenGL ES2.0的资料，发现关于android中OpenGL ES2.0开发的中文资料少的可怜，而成体系的资料更是凤毛麟角。所以我就动了一些念头，希望将自己学习OpenGL的过程记录下来，帮助到其他希望学习OpenGL的人。在学习的过程中，我也曾经获得其他开源者的帮助，说起来这也算是投桃报李吧，哈哈。</p>
-<p>由于这里主要是记录我学习中的一些感想。可能有些地方讲的并不直观，有些地方只做了简要阐述。大家也可以在网上找其他资料作为参考。</p>
-<p>网上资源：</p>
-<p> <1><a href="http://blog.csdn.net/mapdigit/article/details/7526556" target="_blank">OpenGL ES1.0资料</a>，虽然有点老，不过有点是成体系的描述，对于完全没有OpenGL基础的人而言 是个完美过渡。</p>
-<p> <2><a href="http://yarin.blog.51cto.com/1130898/p-11" target="_blank">NEHE OpenGL教程</a>，同样是成体系的教学，缺点：不是针对android，而且 讲述的是OpenGL ES1.0固定管线的，相比2.0之后可编程管线有些过时了。</p>
-<p> <3><a href="http://insanitydesign.com/wp/projects/nehe-android-ports/" target="_blank">NEHE android OpenGL ES教程</a>，好不容易找到的教程，附带有github的开源项目代码作为讲解。唯一的不足就是 讲解内容为英文。</p>
-<p> <4><a href="http://www.apkbus.com/blog-99192-39584.html" target="_blank">OpenGL ES着色语言</a>，学习2.0以后的OpenGL，掌握shader着色语言那是必须的。</p>
-<p> <5><a href="https://www.khronos.org/registry/gles/#specs" target="_blank">OpenGL官网，英语好的就直接看这个吧</a></p>
-<p> <6><a href="http://www.learnopengles.com/android-lesson-one-getting-started/" target="_blank">意外发现的学习OpenGL ES2.0的好网站。当然仍然需要英文~~</a></p>
-<p><7><a href="http://www.clockworkcoders.com/oglsl/tutorials.html" target="_blank">依然是着色语言的教程，不过这个内容更丰富</a></p>
+                        <h1 id="opengl">如何告诉OpenGL我们要画什么</h1>
+<p>在讲后面内容的时候我们需要先思考一个问题，假设让你来画一幅画的话，你需要知道哪些要素了才能开始去画这幅画呢？</p>
+<p>Android中View的源码实现绘制的时候经历了三步，首先是测量控件的大小，因为只有知道大小了才能在布局中进行定位。其次就是确定位置，不确定位置的话就不知道要画在哪。最后才是开始绘制。</p>
+<p>如果按照这个步骤，那么OpenGL ES2中是如何去测量，定位还有绘制的呢？</p>
+<h3 id="1opengl">1.OpenGL中的定位和测量</h3>
+<p>相比起Android中View，OpenGL的的定位测量要简单的多，他只需要我们在它的坐标系上 定义一些顶点，这些顶点可以有很多属性，但最重要的属性就是位置。位置属性通过x，y，z坐标来体现。通过这些顶点与顶点的组合就形成了不同的图形，而这些图形的位置也根据每个点的位置而确定了下来。</p>
+<p>通过代码来体现就是</p>
+<pre><code>float[] tableVertices = {
+                0f, 0f,0f,
+                -0.5f,-0.8f,0f,
+                 0.5f,-0.8f,0f,
+                 0.5f,0.8f,0f,
+                -0.5f,0.8f,0f,
+                -0.5f,-0.8f,0f
+        };
+</code></pre><p>但这不就是一个普通的float数组么，float数组是java的类型，而OpenGL使用的是却是另外一种语言。那么我们怎么把这份数据传递给运行在本地环境的OpenGL呢？下面就会解答这个问题。</p>
+<h3 id="2javaopengl">2.如何将java数据传递给本地系统库中的OpenGL。</h3>
+<p>要知道，Android运行代码的时候并不是直接运行在硬件上的，而是运行在Dalvik虚拟机上的。运行在虚拟机上的代码不能直接访问本地环境。除非通过特定的API的接口。Android这样设计其实也是为了降低系统的耦合性，让开发者不用去关心CPU等硬件，专心搞软件就行了。这样做一般也没问题，但在与本地系统交互的时候就比较麻烦了，比如说OpenGL。OpenGL作为本地系统库直接运行在硬件上。</p>
+<p>继续上面那个问题：如何将java数据传递给本地系统库中的OpenGL。
+有两种技术可以实现：1.使用本地接口JNI技术，这个技术已经集成在Android系统android.opengl.GLES20中，我们可以直接调用.
+2.改变内存分配的方式，java有一个特殊的集合，他们可以分配本地内存快，并且把java的数据复制到本地内存。而本地内存是可以被本地环境读取，这样就可以达到传递数据的目的。</p>
+<p>代码实现如下：</p>
+<pre><code>private FloatBuffer vertexData; //缓存的顶点数据
+vertexData =
+                //allocateDirect分配本地内存  float数组的长度乘以每一个float类型占用的字节数
+                ByteBuffer.allocateDirect(tableVertices.length * BYTES_PER_FLOAT).
+                        //告诉字节缓冲区按照本地字节序组织它的内容
+                        //当一个值占用多个字节，比如32位整形数，字节按照从高位到低位 或者从低位到高位排序
+                        //排什么顺序其实不重要，重要的是程序运行过程中所有的字节都得按同样的顺序排序，
+                        //不能有的排正序，有的排倒序。 而  order(ByteOrder.nativeOrder()就能达到这个目的。
+                        order(ByteOrder.nativeOrder())
+                        //根据分配的内存获取一个能分配本地内存的FloatBuffer实例对象。
+                        .asFloatBuffer();
+        //将顶点数据 内存从虚拟机中拷贝到本地
+        vertexData.put(tableVertices);
+</code></pre><p>现在OpenGL已经可以读取这些数据，那么它会如何去使用这些数据呢？
+这就涉及到OpenGL管线的概念了。</p>
 
                     
                     </section>
@@ -286,21 +314,23 @@
         </div>
 
         
+        <a href="../1opengl_es20/README.html" class="navigation navigation-prev " aria-label="Previous page: 1.我对OpenGL ES2.0的理解"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./1opengl_es20/README.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 1.我对OpenGL ES2.0的理解"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="../opengl_es20_pipeline/README.html" class="navigation navigation-next " aria-label="Next page: OpenGL ES2.0 的管线（pipeline）"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
 
         
-<script src="gitbook/app.js"></script>
+<script src="../gitbook/app.js"></script>
 
     
     <script src="https://cdn.mathjax.org/mathjax/2.4-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
 
     
-    <script src="gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    <script src="../gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
     
 
 <script>

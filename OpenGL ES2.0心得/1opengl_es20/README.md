@@ -12,22 +12,35 @@ OpenGL ES2.0是一套针对移动设备的应用程序接口，对于程序员�
 
 
 Android为我们提供了一个专门的用在3D画图上的 GLSurfaceView。这个类被放在一个单独的包android.opengl里面，其中实现了其他View所不具备的操作：
-      (1) 具有OpenGL|ES调用过程中的错误跟踪，检查工具，这样就方便了Opengl编程过程的debug ；
-      (2) 所有的画图是在一个专门的Surface上进行，这个Surface可以最后被组合到android的View体系中 ；
-      (3) 它可以根据EGL的配置来选择自己的buffer类型，比如RGB565，depth＝16 (这里有点疑问，SurfaceHolder的类型是SURFACE_TYPE_GPU，内存就是从EGL分配过来的？)
-      (4) 所有画图的操作都通过render来提供，而且render对Opengl的调用是在一个单独的线程中
-      (5) Opengl的运行周期与Activity的生命周期可以协调
-      下面我们再看看利用GLSurface画3D图形的一个典型的Sequence
-      (1)  选择你的EGL配置(就是你画图需要的buffer类型) [optional] ：
+
+(1) 具有OpenGL|ES调用过程中的错误跟踪，检查工具，这样就方便了Opengl编程过程的debug ；
+
+(2) 所有的画图是在一个专门的Surface上进行，这个Surface可以最后被组合到android的View体系中 ；
+
+(3) 它可以根据EGL的配置来选择自己的buffer类型，比如RGB565，depth＝16 (这里有点疑问，SurfaceHolder的类型是SURFACE_TYPE_GPU，内存就是从EGL分配过来的？)
+
+(4) 所有画图的操作都通过render来提供，而且render对Opengl的调用是在一个单独的线程中
+
+(5) Opengl的运行周期与Activity的生命周期可以协调
+
+下面我们再看看利用GLSurface画3D图形的一个典型的Sequence
+
+(1)  选择你的EGL配置(就是你画图需要的buffer类型) [optional] ：
             setEGLConfigChooser(boolean)
             setEGLConfigChooser(EGLConfigChooser)
             setEGLConfigChooser(int, int, int, int, int, int)
-      (2) 选择是否需要Debug信息 [optional] :
+
+(2) 选择是否需要Debug信息 [optional] :
            setDebugFlags(int)
            setGLWrapper(GLSurfaceView.GLWrapper).
-      (3) 为GLSurfaceView注册一个画图的renderer ： setRenderer(GLSurfaceView.Renderer)
-      (4) 设置reander mode，可以为持续渲染或者根据命令   来渲染,默认是continuous rendering [optional]： setRenderMode(int)
-      这里有一个要注意的地方就是必须将Opengl的运行和Activity的生命周期绑定在一起，也就是说Activity pause的时候，opengl的渲染也必须pause。另外GLSurfaceView还提供了一个非常实用的线程间交互的函数 queueEvent(Runnable)，可以用在主线程和render线程之间的交互，下面就是SDK提供的范例：
+
+(3) 为GLSurfaceView注册一个画图的renderer ： setRenderer(GLSurfaceView.Renderer)
+
+(4) 设置reander mode，可以为持续渲染或者根据命令   来渲染,默认是continuous rendering [optional]： setRenderMode(int)
+      这里有一个要注意的地方就是必须将Opengl的运行和Activity的生命周期绑定在一起，也就是说Activity pause的时候，opengl的渲染也必须pause。
+
+另外GLSurfaceView还提供了一个非常实用的线程间交互的函数 queueEvent(Runnable)，可以用在主线程和render线程之间的交互，下面就是SDK提供的范例：
+
      class MyGLSurfaceView extends GLSurfaceView {
      private MyRenderer mMyRenderer;
      public void start() {
@@ -46,6 +59,8 @@ Android为我们提供了一个专门的用在3D画图上的 GLSurfaceView。这
          }
          return super.onKeyDown(keyCode, event);
       }
-   }
-     GLSurfaceView是Android提供的一个非常值得学习   的类，它实际上是一个如何在View中添加画图线程的例子，如何在Java   中使用线程的例子，如何添加事件队列的例子，一个使用SurfaceView画图的经典Sequence，一个如何定义Debug信息的例子，觉得把它看懂了可以学到很多知识   ，具体的源码在：/framworks/base/opengl/java/android/opengl/GLSurfaceView.java 。
+      }
+
+
+ GLSurfaceView是Android提供的一个非常值得学习   的类，它实际上是一个如何在View中添加画图线程的例子，如何在Java   中使用线程的例子，如何添加事件队列的例子，一个使用SurfaceView画图的经典Sequence，一个如何定义Debug信息的例子，觉得把它看懂了可以学到很多知识   ，具体的源码在：/framworks/base/opengl/java/android/opengl/GLSurfaceView.java 。
 
