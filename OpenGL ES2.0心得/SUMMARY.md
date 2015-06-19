@@ -9,4 +9,5 @@
 * [光照效果](file_name_should_be_unique.md)
 * [CPU与GPU的不同](cpugpu/README.md)
 * [纹理](.md)
+* [加载obj文件](obj/README.md)
 
