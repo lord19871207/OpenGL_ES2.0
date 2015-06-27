@@ -52,6 +52,7 @@ public class Geometry {
         }
     }
 
+    //射线
     public static class Ray{
         public final Point point;
         public final Vector vector;
@@ -63,6 +64,7 @@ public class Geometry {
 
     }
 
+    //向量
     public static class Vector{
         public final float x,y,z;
         public Vector(float x,float y,float z){
@@ -91,6 +93,7 @@ public class Geometry {
         }
     }
 
+    //平面
     public static class Plane{
         public final Point point;
         public final Vector vector;
@@ -101,6 +104,7 @@ public class Geometry {
         }
     }
 
+    //球体
     public static class Sphere{
         public final Point center;
         public final float radius;
