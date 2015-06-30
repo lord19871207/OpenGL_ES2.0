@@ -15,8 +15,8 @@ public class Geometry {
             this.z=z;
         }
 
-        public Point translate(){
-
+        public Point translate(Vector vector){
+            return
         }
     }
 
@@ -33,8 +33,19 @@ public class Geometry {
             return FloatMath.sqrt(x*x+y*y+z*z);
         }
 
+        //叉乘  获取对应向量的法向量
         public Vector clossProduct(Vector other){
-            return
+            return new Vector((y*other.z)-(z*other.y),(z*other.x-x*other.z),(x*other.y)-(y*other.x));
+        }
+
+        //点乘 获取角度
+        public float dotProduct(Vector vector){
+            return vector.x*x+vector.y*y+vector.z*z;
+        }
+
+        //缩放
+        public Vector scale(float scale){
+            return new Vector(x*scale,y*scale,z*scale);
         }
 
     }
