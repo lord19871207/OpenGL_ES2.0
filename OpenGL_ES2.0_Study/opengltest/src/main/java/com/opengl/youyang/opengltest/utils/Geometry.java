@@ -16,7 +16,7 @@ public class Geometry {
         }
 
         public Point translate(Vector vector){
-            return
+            return new Point(x+vector.x,y+vector.y,z+vector.z);
         }
     }
 
