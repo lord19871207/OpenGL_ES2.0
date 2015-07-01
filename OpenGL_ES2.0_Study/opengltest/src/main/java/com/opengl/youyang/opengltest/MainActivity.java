@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
         view = new GLSurfaceView(this);
         if (supportES2) {
             view.setEGLContextClientVersion(2);
-            view.setRenderer(new FirstRender());
+            view.setRenderer(new FirstRender(this));
         } else {
             Toast.makeText(this, "不支持OpenGL ES2.0", Toast.LENGTH_SHORT).show();
             return;
