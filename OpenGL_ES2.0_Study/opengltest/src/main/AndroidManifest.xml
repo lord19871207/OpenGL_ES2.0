@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.opengl.youyang.opengltest" >
 
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

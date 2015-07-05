@@ -13,13 +13,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.opengl.youyang.opengl_es20_study.utils.Geometry;
-import com.opengl.youyang.opengltest.view.Myglsurfaceview;
-
 
 public class MainActivity extends Activity {
 
-    private Myglsurfaceview glSurfaceView;
+    private GLSurfaceView glSurfaceView;
     private boolean renderSet = false;
 
     @TargetApi(Build.VERSION_CODES.FROYO)
@@ -27,7 +24,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //第一步就是检验手机是否支持OpenGL ES2.0
-        glSurfaceView = new Myglsurfaceview(this);
+        glSurfaceView = new GLSurfaceView(this);
         final boolean isSuppotES2=isSupportES2();
 //        final FirstRender render=new FirstRender(this);
         final CircleRender render=new CircleRender(this);

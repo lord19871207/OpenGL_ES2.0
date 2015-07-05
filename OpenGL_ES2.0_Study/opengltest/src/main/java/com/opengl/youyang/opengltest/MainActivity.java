@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +33,9 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "不支持OpenGL ES2.0", Toast.LENGTH_SHORT).show();
             return;
         }
+//        view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         setContentView(view);
+
 
 
 
@@ -75,12 +78,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-//        view.onPause();
+        view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        view.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        view.onResume();
+        view.onResume();
     }
 }
