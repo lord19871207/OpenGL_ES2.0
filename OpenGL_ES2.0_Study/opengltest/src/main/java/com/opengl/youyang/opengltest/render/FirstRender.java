@@ -49,6 +49,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         GLES20.glClearColor(0.5f,1.0f,0.5f,0.0f);
         colorShaderProgram = new ColorShaderProgram(context);
+        vertex=generateBall();
         vertexArray=new VertexArray(vertex);
 
         colorShaderProgram.useProgram();
@@ -58,28 +59,56 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
 
     }
-
+    float rate;
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0,0,width,height);
-        MatrixHelper.perspectiveM(projectionMarix,45,(float)width/(float)height,1,5);
+        MatrixHelper.perspectiveM(projectionMarix,45,(float)width/(float)height,1f,10f);
+//        rate = (float)width/(float)height;
+        Matrix.setIdentityM(viewMatrix,0);
+        Matrix.translateM(viewMatrix,0,0f,0f,-5f);
+        final float[] temp=new float[16];
+        Matrix.multiplyMM(temp,0,projectionMarix,0,viewMatrix,0);
+        System.arraycopy(temp,0,projectionMarix,0,temp.length);
+
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        b++;
+//        b=b+5;
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-        Matrix.setIdentityM(viewMatrix,0);
 //        Matrix.translateM(viewMatrix,0,0f,0.2f,0f);
-        colorShaderProgram.setUniforms(viewMatrix,0.6f,0.4f,1.0f);
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
+        colorShaderProgram.setUniforms(projectionMarix,0.6f,0.4f,1.0f);
+        GLES20.glDrawArrays(GLES20.GL_LINE_LOOP,0,2160);
 
-        Matrix.setIdentityM(viewMatrix,0);
-        Matrix.translateM(viewMatrix,0,-0.4f,0f,0f);
-        Matrix.rotateM(viewMatrix,0,b,0.0f,1f,0f);
-        Matrix.translateM(viewMatrix,0,0.4f,0f,0f);
-//        Matrix.multiplyMM(viewProjectionMatrix, 0, projectionMarix, 0, viewMatrix, 0);
-        colorShaderProgram.setUniforms(viewMatrix,0.9f,0.2f,1.0f);
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
+//        Matrix.setIdentityM(viewMatrix,0);
+//        Matrix.translateM(viewMatrix,0,-0.4f,0f,0f);
+//        Matrix.rotateM(viewMatrix,0,b,0.0f,1f,0f);
+//        Matrix.translateM(viewMatrix,0,0.4f,0f,0f);
+//        colorShaderProgram.setUniforms(viewMatrix,0.9f,0.2f,1.0f);
+//        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
+    }
+
+    private float[] generateBall(){
+        int count=0;
+        float[] ballVertex=new float[720*3];//20层 每一层的圆 36个点
+        for (int w=-90;w<90;w=w+9){
+            for(int angle=0;angle<360;angle=angle+10){
+                double r=Math.cos(angleTOradian(w));
+                float y= (float) Math.sin(angleTOradian(w));
+                float x= (float) (r*Math.cos(angleTOradian(angle)));
+                float z= (float) (r*Math.sin(angleTOradian(angle)));
+                ballVertex[count++]=x;
+                ballVertex[count++]=y;
+                ballVertex[count++]=z;
+
+            }
+        }
+        return ballVertex;
+    }
+
+
+    private double angleTOradian(float radian){
+        return radian*Math.PI/180.0f;
     }
 }
