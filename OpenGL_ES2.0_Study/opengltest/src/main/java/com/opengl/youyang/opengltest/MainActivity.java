@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,10 +37,13 @@ public class MainActivity extends Activity {
         }
         view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         setContentView(view);
-
-
-
-
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                view.requestRender();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -46,6 +51,7 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

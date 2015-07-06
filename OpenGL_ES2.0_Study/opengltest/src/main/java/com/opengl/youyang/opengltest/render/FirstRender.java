@@ -34,6 +34,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
     private float[] vertex;
     private VertexArray vertexArray;
     public int b=0;
+    private int vCount=0;
     public FirstRender(Context context){
      this.context=context;
 
@@ -78,11 +79,12 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
-//        b=b+5;
+        b=b+1;
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 //        Matrix.translateM(viewMatrix,0,0f,0.2f,0f);
+        Matrix.rotateM(projectionMarix,0,b,1.0f,0f,0f);
         colorShaderProgram.setUniforms(projectionMarix,0.6f,0.4f,1.0f);
-        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP,0,2160);
+        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP,0,vCount);
 
 //        Matrix.setIdentityM(viewMatrix,0);
 //        Matrix.translateM(viewMatrix,0,-0.4f,0f,0f);
@@ -110,11 +112,11 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
                 float x2= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.cos(Math.toRadians(hangle+angleSpan)));
                 float y2= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.sin(Math.toRadians(hangle+angleSpan)));
-                float z2= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
+                float z2= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle+angleSpan)));
 
                 float x3= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.cos(Math.toRadians(hangle)));
                 float y3= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.sin(Math.toRadians(hangle)));
-                float z3= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
+                float z3= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle+angleSpan)));
 
                 //1 3 0    123
                 aList.add(x1);aList.add(y1);aList.add(z1);
@@ -127,6 +129,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
             }
         }
+        vCount=aList.size()/3;
         ballVertex=new float[aList.size()];
         for (int i=0;i<aList.size();i++){
             ballVertex[i]=aList.get(i);
