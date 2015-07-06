@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "不支持OpenGL ES2.0", Toast.LENGTH_SHORT).show();
             return;
         }
-//        view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         setContentView(view);
 
 

@@ -14,6 +14,8 @@ import com.opengl.youyang.opengltest.utils.MatrixHelper;
 import com.opengl.youyang.opengltest.utils.ShaderHelper;
 import com.opengl.youyang.opengltest.utils.TextResourceReader;
 
+import java.util.ArrayList;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -21,6 +23,7 @@ import javax.microedition.khronos.opengles.GL10;
  * Created by youyang on 15-6-26.
  */
 public class FirstRender implements GLSurfaceView.Renderer {
+    private static final int UNIT_SIZE = 1;
     private  final float[] projectionMarix= new float[16];
     private  final float[] viewMatrix= new float[16];
     private  final float[] viewProjectionMatrix= new float[16];
@@ -53,7 +56,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         vertexArray=new VertexArray(vertex);
 
         colorShaderProgram.useProgram();
-        vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 2, 0);
+        vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
 
 //        textureShaderProgram= new TextureShaderProgram(context);
 
@@ -79,7 +82,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 //        Matrix.translateM(viewMatrix,0,0f,0.2f,0f);
         colorShaderProgram.setUniforms(projectionMarix,0.6f,0.4f,1.0f);
-        GLES20.glDrawArrays(GLES20.GL_LINE_LOOP,0,2160);
+        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP,0,2160);
 
 //        Matrix.setIdentityM(viewMatrix,0);
 //        Matrix.translateM(viewMatrix,0,-0.4f,0f,0f);
@@ -91,24 +94,44 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     private float[] generateBall(){
         int count=0;
-        float[] ballVertex=new float[720*3];//20层 每一层的圆 36个点
-        for (int w=-90;w<90;w=w+9){
-            for(int angle=0;angle<360;angle=angle+10){
-                double r=Math.cos(angleTOradian(w));
-                float y= (float) Math.sin(angleTOradian(w));
-                float x= (float) (r*Math.cos(angleTOradian(angle)));
-                float z= (float) (r*Math.sin(angleTOradian(angle)));
-                ballVertex[count++]=x;
-                ballVertex[count++]=y;
-                ballVertex[count++]=z;
+        ArrayList<Float> aList=new ArrayList<Float>();
+        float r=0.8f;
+        float[] ballVertex;
+        final int angleSpan=10;
+        for (int vAngle=-90;vAngle<90;vAngle+=angleSpan){
+            for(int hangle=0;hangle<=360;hangle+=angleSpan){
+                float x0= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.cos(Math.toRadians(hangle)));
+                float y0= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.sin(Math.toRadians(hangle)));
+                float z0= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
+
+                float x1= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.cos(Math.toRadians(hangle+angleSpan)));
+                float y1= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.sin(Math.toRadians(hangle+angleSpan)));
+                float z1= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
+
+                float x2= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.cos(Math.toRadians(hangle+angleSpan)));
+                float y2= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.sin(Math.toRadians(hangle+angleSpan)));
+                float z2= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
+
+                float x3= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.cos(Math.toRadians(hangle)));
+                float y3= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.sin(Math.toRadians(hangle)));
+                float z3= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
+
+                //1 3 0    123
+                aList.add(x1);aList.add(y1);aList.add(z1);
+                aList.add(x3);aList.add(y3);aList.add(z3);
+                aList.add(x0);aList.add(y0);aList.add(z0);
+
+                aList.add(x1);aList.add(y1);aList.add(z1);
+                aList.add(x2);aList.add(y2);aList.add(z2);
+                aList.add(x3);aList.add(y3);aList.add(z3);
 
             }
+        }
+        ballVertex=new float[aList.size()];
+        for (int i=0;i<aList.size();i++){
+            ballVertex[i]=aList.get(i);
         }
         return ballVertex;
     }
 
-
-    private double angleTOradian(float radian){
-        return radian*Math.PI/180.0f;
-    }
 }
