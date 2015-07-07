@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,9 +19,14 @@ import android.widget.Toast;
 
 import com.opengl.youyang.opengltest.render.FirstRender;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements FirstRender.DrawCOntroller{
     GLSurfaceView view;
-
+    public int dY=0;
+    public int dX=0;
+    float touchX=0;
+    float touchY=0;
+    boolean isXLeft;
+    boolean isYTop;
 
     @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
@@ -30,17 +36,37 @@ public class MainActivity extends Activity {
         view = new GLSurfaceView(this);
         if (supportES2) {
             view.setEGLContextClientVersion(2);
-            view.setRenderer(new FirstRender(this));
+            view.setRenderer(new FirstRender(this,this));
         } else {
             Toast.makeText(this, "不支持OpenGL ES2.0", Toast.LENGTH_SHORT).show();
             return;
         }
         view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         setContentView(view);
+
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_MOVE:
+                        if(event.getX()-touchX<0){
+                            isXLeft=true;
+                        }else{
+                            isXLeft=false;
+                        }
+
+                        if(event.getY()-touchY<0){
+                            isYTop=true;
+                        }else{
+                            isYTop=false;
+                        }
+                        break;
+                }
                 view.requestRender();
+                touchX=event.getX();
+                touchY=event.getY();
+
                 return true;
             }
         });
@@ -92,5 +118,28 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         view.onResume();
+    }
+
+    @Override
+    public void controllMatrix(float[] projectionMarix) {
+
+        if(isYTop){
+            dY++;
+            Matrix.rotateM(projectionMarix, 0, dY, 1.0f, 0f, 0f);
+        }else{
+            dY--;
+            Matrix.rotateM(projectionMarix, 0, dY, 1.0f, 0f, 0f);
+        }
+//        Matrix.translateM(projectionMarix, 0, 0.0f, 0.2f, 0f);
+
+        if(isXLeft){
+            dX++;
+            Matrix.rotateM(projectionMarix, 0, dX, 0.0f, 1.0f, 0f);
+        }else{
+            dX--;
+            Matrix.rotateM(projectionMarix, 0, dX, 0.0f, 1.0f, 0f);
+        }
+//        Matrix.translateM(projectionMarix, 0, 0f, 0f, 0.2f);
+
     }
 }

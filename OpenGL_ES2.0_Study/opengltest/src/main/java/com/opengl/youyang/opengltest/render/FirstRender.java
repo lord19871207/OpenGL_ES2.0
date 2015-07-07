@@ -33,11 +33,11 @@ public class FirstRender implements GLSurfaceView.Renderer {
     private float a=0.4f;
     private float[] vertex;
     private VertexArray vertexArray;
-    public int b=0;
     private int vCount=0;
-    public FirstRender(Context context){
+    DrawCOntroller drawCOntroller;
+    public FirstRender(Context context,DrawCOntroller drawCOntroller){
      this.context=context;
-
+        this.drawCOntroller=drawCOntroller;
         vertex=new float[]{
                 -a,-a,
                 a,a,
@@ -79,10 +79,9 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        b=b+1;
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 //        Matrix.translateM(viewMatrix,0,0f,0.2f,0f);
-        Matrix.rotateM(projectionMarix,0,b,1.0f,0f,0f);
+        drawCOntroller.controllMatrix(projectionMarix);
         colorShaderProgram.setUniforms(projectionMarix,0.6f,0.4f,1.0f);
         GLES20.glDrawArrays(GLES20.GL_LINE_STRIP,0,vCount);
 
@@ -92,6 +91,10 @@ public class FirstRender implements GLSurfaceView.Renderer {
 //        Matrix.translateM(viewMatrix,0,0.4f,0f,0f);
 //        colorShaderProgram.setUniforms(viewMatrix,0.9f,0.2f,1.0f);
 //        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
+    }
+
+    public interface DrawCOntroller {
+        void controllMatrix(float[] projectionMarix);
     }
 
     private float[] generateBall(){
