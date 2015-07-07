@@ -9,10 +9,8 @@ import com.opengl.youyang.opengltest.R;
 import com.opengl.youyang.opengltest.data.VertexArray;
 import com.opengl.youyang.opengltest.program.ColorShaderProgram;
 import com.opengl.youyang.opengltest.program.TextureShaderProgram;
-import com.opengl.youyang.opengltest.utils.LogConfig;
 import com.opengl.youyang.opengltest.utils.MatrixHelper;
-import com.opengl.youyang.opengltest.utils.ShaderHelper;
-import com.opengl.youyang.opengltest.utils.TextResourceReader;
+import com.opengl.youyang.opengltest.utils.TextureHelper;
 
 import java.util.ArrayList;
 
@@ -26,41 +24,46 @@ public class FirstRender implements GLSurfaceView.Renderer {
     private static final int UNIT_SIZE = 1;
     private  final float[] projectionMarix= new float[16];
     private  final float[] viewMatrix= new float[16];
+    private  final float[] modelMatrix= new float[16];
     private  final float[] viewProjectionMatrix= new float[16];
     private TextureShaderProgram textureShaderProgram;
     private ColorShaderProgram colorShaderProgram;
     private Context context;
-    private float a=0.4f;
+    private float a=0.8f;
     private float[] vertex;
     private VertexArray vertexArray;
+
+    private float[] vertex1;
+    private VertexArray vertexArray1;
     private int vCount=0;
     DrawCOntroller drawCOntroller;
     public FirstRender(Context context,DrawCOntroller drawCOntroller){
      this.context=context;
         this.drawCOntroller=drawCOntroller;
-        vertex=new float[]{
-                -a,-a,
-                a,a,
-                -a,a,
-
-                -a,-a,
-                a,-a,
-                a,a
-        };
     }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         GLES20.glClearColor(0.5f,1.0f,0.5f,0.0f);
         colorShaderProgram = new ColorShaderProgram(context);
+        colorShaderProgram.useProgram();
+//        textureShaderProgram=new TextureShaderProgram(context);
+//        textureShaderProgram.useProgram();
         vertex=generateBall();
+        vertex1=new float[]{
+
+                -a,-a,0f,1f,//左下
+                a,a, 1f,1f,  //右上
+                -a,a,0f,0f, //左上
+
+                -a,-a, 0f,1f,//左下
+                a,-a, 1f,0f,//右下
+                a,a ,1f,1f //右上
+        };
         vertexArray=new VertexArray(vertex);
 
-        colorShaderProgram.useProgram();
-        vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
 
-//        textureShaderProgram= new TextureShaderProgram(context);
-
+        vertexArray1=new VertexArray(vertex1);
 
     }
     float rate;
@@ -81,6 +84,15 @@ public class FirstRender implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 //        Matrix.translateM(viewMatrix,0,0f,0.2f,0f);
+//        Matrix.setIdentityM(modelMatrix,0);
+//        vertexArray1.setVertexAttribPointer(0, textureShaderProgram.getPositionAttributeLocation(), 2, 0);
+//        vertexArray1.setVertexAttribPointer(2, textureShaderProgram.getTextureCoordinatesAttributeLocation(), 2, 2);
+//        TextureHelper.loadTexture(context, R.drawable.ic_launcher);
+////        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, TextureHelper.loadTexture(context, R.drawable.ic_launcher));
+////        colorShaderProgram.setUniforms(modelMatrix,0.2f,0.9f,1.0f);
+//        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
+
+        vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
         drawCOntroller.controllMatrix(projectionMarix);
         colorShaderProgram.setUniforms(projectionMarix,0.6f,0.4f,1.0f);
         GLES20.glDrawArrays(GLES20.GL_LINE_STRIP,0,vCount);
