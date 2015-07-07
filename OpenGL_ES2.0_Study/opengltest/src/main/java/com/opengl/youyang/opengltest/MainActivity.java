@@ -18,9 +18,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.opengl.youyang.opengltest.render.FirstRender;
+import com.opengl.youyang.opengltest.view.Myglsurfaceview;
 
-public class MainActivity extends Activity implements FirstRender.DrawCOntroller{
-    GLSurfaceView view;
+public class MainActivity extends Activity{
+    Myglsurfaceview view;
     public int dY=0;
     public int dX=0;
     float touchX=0;
@@ -33,10 +34,10 @@ public class MainActivity extends Activity implements FirstRender.DrawCOntroller
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         boolean supportES2 = isSupportES2();
-        view = new GLSurfaceView(this);
+        view = new Myglsurfaceview(this);
         if (supportES2) {
             view.setEGLContextClientVersion(2);
-            view.setRenderer(new FirstRender(this,this));
+            view.setRenderer(new FirstRender(this,view));
         } else {
             Toast.makeText(this, "不支持OpenGL ES2.0", Toast.LENGTH_SHORT).show();
             return;
@@ -44,32 +45,6 @@ public class MainActivity extends Activity implements FirstRender.DrawCOntroller
         view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         setContentView(view);
 
-        view.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_MOVE:
-                        if(event.getX()-touchX<0){
-                            isXLeft=true;
-                        }else{
-                            isXLeft=false;
-                        }
-
-                        if(event.getY()-touchY<0){
-                            isYTop=true;
-                        }else{
-                            isYTop=false;
-                        }
-                        break;
-                }
-                view.requestRender();
-                touchX=event.getX();
-                touchY=event.getY();
-
-                return true;
-            }
-        });
     }
 
     @Override
@@ -120,26 +95,4 @@ public class MainActivity extends Activity implements FirstRender.DrawCOntroller
         view.onResume();
     }
 
-    @Override
-    public void controllMatrix(float[] projectionMarix) {
-
-        if(isYTop){
-            dY++;
-            Matrix.rotateM(projectionMarix, 0, dY, 1.0f, 0f, 0f);
-        }else{
-            dY--;
-            Matrix.rotateM(projectionMarix, 0, dY, 1.0f, 0f, 0f);
-        }
-//        Matrix.translateM(projectionMarix, 0, 0.0f, 0.2f, 0f);
-
-        if(isXLeft){
-            dX++;
-            Matrix.rotateM(projectionMarix, 0, dX, 0.0f, 1.0f, 0f);
-        }else{
-            dX--;
-            Matrix.rotateM(projectionMarix, 0, dX, 0.0f, 1.0f, 0f);
-        }
-//        Matrix.translateM(projectionMarix, 0, 0f, 0f, 0.2f);
-
-    }
 }
