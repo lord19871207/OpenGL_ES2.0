@@ -42,6 +42,11 @@ public class MatrixHelper {
         Matrix.translateM(currMatrix,0,x,y,z);
     }
 
+    //沿着x，y，z方向旋转
+    public static void rotate(int angle,float x,float y,float z){
+        Matrix.rotateM(currMatrix,0,angle, x,y,z);
+    }
+
 
 
     /**

@@ -6,6 +6,7 @@ import android.opengl.Matrix;
 import android.view.MotionEvent;
 
 import com.opengl.youyang.opengltest.render.FirstRender;
+import com.opengl.youyang.opengltest.utils.MatrixHelper;
 
 /**
  * Created by youyang on 15-6-23.
@@ -52,18 +53,18 @@ public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawCO
 
         if(isYTop){
 //            dY++;
-            Matrix.rotateM(projectionMarix, 0, dY, 1.0f, 0f, 0f);
+            MatrixHelper.rotate(dY, 1.0f, 0f, 0f);
         }else{
 //            dY--;
-            Matrix.rotateM(projectionMarix, 0, -dY, 1.0f, 0f, 0f);
+            MatrixHelper.rotate(-dY, 1.0f, 0f, 0f);
         }
 
         if(isXLeft){
 //            dX++;
-            Matrix.rotateM(projectionMarix, 0, dX, 0.0f, 1.0f, 0f);
+            MatrixHelper.rotate( dX, 0.0f, 1.0f, 0f);
         }else{
 //            dX--;
-            Matrix.rotateM(projectionMarix, 0, -dX, 0.0f, 1.0f, 0f);
+            MatrixHelper.rotate( -dX, 0.0f, 1.0f, 0f);
         }
 
     }

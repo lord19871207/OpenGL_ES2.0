@@ -3,15 +3,10 @@ package com.opengl.youyang.opengltest.render;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
-
-import com.opengl.youyang.opengltest.R;
 import com.opengl.youyang.opengltest.data.VertexArray;
 import com.opengl.youyang.opengltest.program.ColorShaderProgram;
 import com.opengl.youyang.opengltest.program.TextureShaderProgram;
 import com.opengl.youyang.opengltest.utils.MatrixHelper;
-import com.opengl.youyang.opengltest.utils.TextureHelper;
-
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -22,10 +17,7 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class FirstRender implements GLSurfaceView.Renderer {
     private static final int UNIT_SIZE = 1;
-    private  final float[] projectionMarix= new float[16];
-    private  final float[] viewMatrix= new float[16];
-    private  final float[] modelMatrix= new float[16];
-    private  final float[] viewProjectionMatrix= new float[16];
+    private  float[] mvpMatrix= new float[16];
     private TextureShaderProgram textureShaderProgram;
     private ColorShaderProgram colorShaderProgram;
     private Context context;
@@ -86,16 +78,23 @@ public class FirstRender implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-
+        mvpMatrix=MatrixHelper.getFinalMatrix();
         vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
-        drawCOntroller.controllMatrix(MatrixHelper.getFinalMatrix());
-        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),0.6f,0.4f,1.0f,radius);
+        drawCOntroller.controllMatrix(mvpMatrix);
+        colorShaderProgram.setUniforms(mvpMatrix,0.6f,0.4f,1.0f,radius);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,vCount);
     }
+
+
+
 
     public interface DrawCOntroller {
         void controllMatrix(float[] projectionMarix);
     }
+
+
+
+
     float radius;
     private float[] generateBall(){
         int count=0;
