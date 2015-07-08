@@ -37,6 +37,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         GLES20.glClearColor(1.0f,1.0f,1.0f,0.0f);
+        MatrixHelper.initStack();
         colorShaderProgram = new ColorShaderProgram(context);
         colorShaderProgram.useProgram();
 //        textureShaderProgram=new TextureShaderProgram(context);
@@ -62,13 +63,11 @@ public class FirstRender implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0,0,width,height);
-        MatrixHelper.initStack();
         MatrixHelper.perspectiveM(45,(float)width/(float)height,1f,10f);
+        MatrixHelper.setCamera(0,0,8.0f,0f,0f,0f,0f,1.0f,0.0f);
 //        rate = (float)width/(float)height;
 //        Matrix.setIdentityM(viewMatrix,0);
 //        Matrix.translateM(viewMatrix,0,0f,0f,-5f);
-        MatrixHelper.translate(0f,0f,-5f);
-
 //        final float[] temp=new float[16];
 //        Matrix.multiplyMM(temp,0,projectionMarix,0,viewMatrix,0);
 //        System.arraycopy(temp,0,projectionMarix,0,temp.length);
@@ -78,11 +77,23 @@ public class FirstRender implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-        mvpMatrix=MatrixHelper.getFinalMatrix();
+        MatrixHelper.pushMatrix();
+        MatrixHelper.pushMatrix();
+        MatrixHelper.translate(-0.5f,0f,1f);
         vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
-        drawCOntroller.controllMatrix(mvpMatrix);
-        colorShaderProgram.setUniforms(mvpMatrix,0.6f,0.4f,1.0f,radius);
+        drawCOntroller.controllMatrix(MatrixHelper.getFinalMatrix());
+        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),0.6f,0.4f,1.0f,radius);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,vCount);
+        MatrixHelper.popMatrix();
+
+        MatrixHelper.pushMatrix();
+        MatrixHelper.translate(1.5f,0f,0f);
+        vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
+        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),0.6f,0.4f,1.0f,radius);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,vCount);
+        MatrixHelper.popMatrix();
+        MatrixHelper.popMatrix();
+
     }
 
 

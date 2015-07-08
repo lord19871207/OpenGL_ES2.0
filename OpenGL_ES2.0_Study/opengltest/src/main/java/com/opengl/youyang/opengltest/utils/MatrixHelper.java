@@ -18,6 +18,7 @@ public class MatrixHelper {
     //产生没有任何变化的矩阵
     public static void initStack(){
         currMatrix=new float[16];
+        Matrix.setIdentityM(currMatrix,0);
         Matrix.setRotateM(currMatrix,0,0,1,0,0);
     }
 

@@ -52,18 +52,18 @@ public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawCO
     public void controllMatrix(float[] projectionMarix) {
 
         if(isYTop){
-//            dY++;
+            dY++;
             MatrixHelper.rotate(dY, 1.0f, 0f, 0f);
         }else{
-//            dY--;
+            dY--;
             MatrixHelper.rotate(-dY, 1.0f, 0f, 0f);
         }
 
         if(isXLeft){
-//            dX++;
+            dX++;
             MatrixHelper.rotate( dX, 0.0f, 1.0f, 0f);
         }else{
-//            dX--;
+            dX--;
             MatrixHelper.rotate( -dX, 0.0f, 1.0f, 0f);
         }
 
