@@ -44,7 +44,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        GLES20.glClearColor(0.5f,1.0f,0.5f,0.0f);
+        GLES20.glClearColor(0.0f,0.0f,0.5f,0.0f);
         colorShaderProgram = new ColorShaderProgram(context);
         colorShaderProgram.useProgram();
 //        textureShaderProgram=new TextureShaderProgram(context);
@@ -83,55 +83,42 @@ public class FirstRender implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-//        Matrix.translateM(viewMatrix,0,0f,0.2f,0f);
-//        Matrix.setIdentityM(modelMatrix,0);
-//        vertexArray1.setVertexAttribPointer(0, textureShaderProgram.getPositionAttributeLocation(), 2, 0);
-//        vertexArray1.setVertexAttribPointer(2, textureShaderProgram.getTextureCoordinatesAttributeLocation(), 2, 2);
-//        TextureHelper.loadTexture(context, R.drawable.ic_launcher);
-////        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, TextureHelper.loadTexture(context, R.drawable.ic_launcher));
-////        colorShaderProgram.setUniforms(modelMatrix,0.2f,0.9f,1.0f);
-//        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
 
         vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
         drawCOntroller.controllMatrix(projectionMarix);
-        colorShaderProgram.setUniforms(projectionMarix,0.6f,0.4f,1.0f);
-        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP,0,vCount);
 
-//        Matrix.setIdentityM(viewMatrix,0);
-//        Matrix.translateM(viewMatrix,0,-0.4f,0f,0f);
-//        Matrix.rotateM(viewMatrix,0,b,0.0f,1f,0f);
-//        Matrix.translateM(viewMatrix,0,0.4f,0f,0f);
-//        colorShaderProgram.setUniforms(viewMatrix,0.9f,0.2f,1.0f);
-//        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,6);
+        colorShaderProgram.setUniforms(projectionMarix,0.6f,0.4f,1.0f,radius);
+        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP,0,vCount);
     }
 
     public interface DrawCOntroller {
         void controllMatrix(float[] projectionMarix);
     }
-
+    float radius;
     private float[] generateBall(){
         int count=0;
         ArrayList<Float> aList=new ArrayList<Float>();
-        float r=0.8f;
+
+        radius = 0.8f;
         float[] ballVertex;
         final int angleSpan=10;
         for (int vAngle=-90;vAngle<90;vAngle+=angleSpan){
             for(int hangle=0;hangle<=360;hangle+=angleSpan){
-                float x0= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.cos(Math.toRadians(hangle)));
-                float y0= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.sin(Math.toRadians(hangle)));
-                float z0= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
+                float x0= (float) (radius*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.cos(Math.toRadians(hangle)));
+                float y0= (float) (radius*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.sin(Math.toRadians(hangle)));
+                float z0= (float) (radius*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
 
-                float x1= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.cos(Math.toRadians(hangle+angleSpan)));
-                float y1= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.sin(Math.toRadians(hangle+angleSpan)));
-                float z1= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
+                float x1= (float) (radius*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.cos(Math.toRadians(hangle+angleSpan)));
+                float y1= (float) (radius*UNIT_SIZE*Math.cos(Math.toRadians(vAngle))*Math.sin(Math.toRadians(hangle+angleSpan)));
+                float z1= (float) (radius*UNIT_SIZE*Math.sin(Math.toRadians(vAngle)));
 
-                float x2= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.cos(Math.toRadians(hangle+angleSpan)));
-                float y2= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.sin(Math.toRadians(hangle+angleSpan)));
-                float z2= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle+angleSpan)));
+                float x2= (float) (radius*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.cos(Math.toRadians(hangle+angleSpan)));
+                float y2= (float) (radius*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.sin(Math.toRadians(hangle+angleSpan)));
+                float z2= (float) (radius*UNIT_SIZE*Math.sin(Math.toRadians(vAngle+angleSpan)));
 
-                float x3= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.cos(Math.toRadians(hangle)));
-                float y3= (float) (r*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.sin(Math.toRadians(hangle)));
-                float z3= (float) (r*UNIT_SIZE*Math.sin(Math.toRadians(vAngle+angleSpan)));
+                float x3= (float) (radius*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.cos(Math.toRadians(hangle)));
+                float y3= (float) (radius*UNIT_SIZE*Math.cos(Math.toRadians(vAngle+angleSpan))*Math.sin(Math.toRadians(hangle)));
+                float z3= (float) (radius*UNIT_SIZE*Math.sin(Math.toRadians(vAngle+angleSpan)));
 
                 //1 3 0    123
                 aList.add(x1);aList.add(y1);aList.add(z1);

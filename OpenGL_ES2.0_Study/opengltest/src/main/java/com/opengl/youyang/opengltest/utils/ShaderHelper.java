@@ -33,7 +33,7 @@ public class ShaderHelper {
         final int[] compileStatus=new int[1];
         GLES20.glGetShaderiv(shaderObjectId,GLES20.GL_COMPILE_STATUS,compileStatus,0);
         if(LogConfig.ON){
-            Log.v(TAG,"编译源码的结果是："+GLES20.glGetShaderInfoLog(shaderObjectId));
+            Log.w(TAG,"编译源码的结果是："+GLES20.glGetShaderInfoLog(shaderObjectId));
 
         }
 

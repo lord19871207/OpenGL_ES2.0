@@ -15,8 +15,8 @@ public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawCO
         super(context);
     }
 
-    public int dY=0;
-    public int dX=0;
+    public int dY=5;
+    public int dX=5;
     float touchX=0;
     float touchY=0;
     boolean isXLeft;
@@ -51,19 +51,19 @@ public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawCO
     public void controllMatrix(float[] projectionMarix) {
 
         if(isYTop){
-            dY++;
+//            dY++;
             Matrix.rotateM(projectionMarix, 0, dY, 1.0f, 0f, 0f);
         }else{
-            dY--;
-            Matrix.rotateM(projectionMarix, 0, dY, 1.0f, 0f, 0f);
+//            dY--;
+            Matrix.rotateM(projectionMarix, 0, -dY, 1.0f, 0f, 0f);
         }
 
         if(isXLeft){
-            dX++;
+//            dX++;
             Matrix.rotateM(projectionMarix, 0, dX, 0.0f, 1.0f, 0f);
         }else{
-            dX--;
-            Matrix.rotateM(projectionMarix, 0, dX, 0.0f, 1.0f, 0f);
+//            dX--;
+            Matrix.rotateM(projectionMarix, 0, -dX, 0.0f, 1.0f, 0f);
         }
 
     }
