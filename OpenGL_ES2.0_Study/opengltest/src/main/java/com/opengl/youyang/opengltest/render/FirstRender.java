@@ -44,7 +44,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        GLES20.glClearColor(0.0f,0.0f,0.5f,0.0f);
+        GLES20.glClearColor(1.0f,1.0f,1.0f,0.0f);
         colorShaderProgram = new ColorShaderProgram(context);
         colorShaderProgram.useProgram();
 //        textureShaderProgram=new TextureShaderProgram(context);
@@ -70,13 +70,16 @@ public class FirstRender implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0,0,width,height);
-        MatrixHelper.perspectiveM(projectionMarix,45,(float)width/(float)height,1f,10f);
+        MatrixHelper.initStack();
+        MatrixHelper.perspectiveM(45,(float)width/(float)height,1f,10f);
 //        rate = (float)width/(float)height;
-        Matrix.setIdentityM(viewMatrix,0);
-        Matrix.translateM(viewMatrix,0,0f,0f,-5f);
-        final float[] temp=new float[16];
-        Matrix.multiplyMM(temp,0,projectionMarix,0,viewMatrix,0);
-        System.arraycopy(temp,0,projectionMarix,0,temp.length);
+//        Matrix.setIdentityM(viewMatrix,0);
+//        Matrix.translateM(viewMatrix,0,0f,0f,-5f);
+        MatrixHelper.translate(0f,0f,-5f);
+
+//        final float[] temp=new float[16];
+//        Matrix.multiplyMM(temp,0,projectionMarix,0,viewMatrix,0);
+//        System.arraycopy(temp,0,projectionMarix,0,temp.length);
 
     }
 
@@ -85,10 +88,9 @@ public class FirstRender implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
         vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
-        drawCOntroller.controllMatrix(projectionMarix);
-
-        colorShaderProgram.setUniforms(projectionMarix,0.6f,0.4f,1.0f,radius);
-        GLES20.glDrawArrays(GLES20.GL_LINE_STRIP,0,vCount);
+        drawCOntroller.controllMatrix(MatrixHelper.getFinalMatrix());
+        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),0.6f,0.4f,1.0f,radius);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,vCount);
     }
 
     public interface DrawCOntroller {

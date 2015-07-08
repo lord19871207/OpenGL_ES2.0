@@ -22,13 +22,6 @@ import com.opengl.youyang.opengltest.view.Myglsurfaceview;
 
 public class MainActivity extends Activity{
     Myglsurfaceview view;
-    public int dY=0;
-    public int dX=0;
-    float touchX=0;
-    float touchY=0;
-    boolean isXLeft;
-    boolean isYTop;
-
     @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
     protected void onCreate(Bundle savedInstanceState) {

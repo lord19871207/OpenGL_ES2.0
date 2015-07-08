@@ -11,14 +11,12 @@
 
  <3>[NEHE android OpenGL ES教程](http://insanitydesign.com/wp/projects/nehe-android-ports/)，好不容易找到的教程，附带有github的开源项目代码作为讲解。唯一的不足就是 讲解内容为英文。
 
- <4>[OpenGL ES着色语言](http://www.apkbus.com/blog-99192-39584.html)，学习2.0以后的OpenGL，掌握shader着色语言那是必须的。
+ <4>[OpenGL官网，英语好的就直接看这个吧](https://www.khronos.org/registry/gles/#specs)
 
- <5>[OpenGL官网，英语好的就直接看这个吧](https://www.khronos.org/registry/gles/#specs)
+ <5>[意外发现的学习OpenGL ES2.0的好网站。当然仍然需要英文~~](http://www.learnopengles.com/android-lesson-one-getting-started/)
 
- <6>[意外发现的学习OpenGL ES2.0的好网站。当然仍然需要英文~~](http://www.learnopengles.com/android-lesson-one-getting-started/)
+<6>[着色语言的教程，这个内容很丰富](http://www.clockworkcoders.com/oglsl/tutorials.html)
 
-<7>[依然是着色语言的教程，不过这个内容更丰富](http://www.clockworkcoders.com/oglsl/tutorials.html)
-
-
+<7>[一步一步教你学OpenGL](http://ogldev.atspace.co.uk/)
 
 
