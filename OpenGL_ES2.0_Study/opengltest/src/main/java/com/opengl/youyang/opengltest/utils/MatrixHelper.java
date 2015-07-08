@@ -2,6 +2,10 @@ package com.opengl.youyang.opengltest.utils;
 
 import android.opengl.Matrix;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
 /**
  * Created by youyang on 15-4-14.
  */
@@ -14,6 +18,20 @@ public class MatrixHelper {
     private static float[] currMatrix; //当前矩阵
     static float[][] mStack=new float[10][16];//用于保存变换矩阵的栈
     static int stackTop=-1;//栈顶索引
+    public static float[] lightLocation=new float[]{0,0,0};//光源位置数组
+    public static FloatBuffer lightPositionFB;
+    static ByteBuffer llbbL=ByteBuffer.allocate(3*4);
+
+    public static void setLightLocation(float x,float y,float z){
+        llbbL.clear();
+        lightLocation[0]=x;lightLocation[1]=y;
+        lightLocation[2]=z;
+        llbbL.order(ByteOrder.nativeOrder());
+        lightPositionFB=llbbL.asFloatBuffer();
+        lightPositionFB.put(lightLocation);
+        lightPositionFB.position(0);
+    }
+
 
     //产生没有任何变化的矩阵
     public static void initStack(){
