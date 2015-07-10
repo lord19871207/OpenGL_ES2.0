@@ -3,6 +3,7 @@ uniform vec4 u_Color;
 uniform float uR;
 varying vec3 vPosition;
 varying vec4 vAmbient;
+varying vec4 vDiffuse;
 
 void main(){
     vec3 color;
@@ -21,5 +22,5 @@ void main(){
     }
 //    color=vec3(1.0,1.0,1.0);
     vec4 finalColor=vec4(color,0);
-    gl_FragColor =finalColor*vAmbient ;
+    gl_FragColor =finalColor*vDiffuse ;
 }
