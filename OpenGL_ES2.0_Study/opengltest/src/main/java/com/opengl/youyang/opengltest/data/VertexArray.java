@@ -37,4 +37,10 @@ public class VertexArray {
         GLES20.glEnableVertexAttribArray(attributeLocation);
         floatBuffer.position(0);
     }
+
+    public FloatBuffer getFloatBuffer(){
+        return  floatBuffer;
+    }
+
+
 }

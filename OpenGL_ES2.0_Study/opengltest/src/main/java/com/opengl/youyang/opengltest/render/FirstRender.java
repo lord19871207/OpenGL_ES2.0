@@ -56,7 +56,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         vertexArray=new VertexArray(vertex);
 
 
-        vertexArray1=new VertexArray(vertex1);
+        vertexArray1=new VertexArray(vertex);
 
     }
     float rate;
@@ -74,15 +74,17 @@ public class FirstRender implements GLSurfaceView.Renderer {
         MatrixHelper.pushMatrix();
         MatrixHelper.translate(-0.5f,0f,1f);
         vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
+        vertexArray1.setVertexAttribPointer(0, colorShaderProgram.getNormalLocation(), 3, 0);
         drawCOntroller.controllMatrix(MatrixHelper.getFinalMatrix());
-        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),0.6f,0.4f,1.0f,radius);
+        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),vertexArray.getFloatBuffer(),radius);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,vCount);
         MatrixHelper.popMatrix();
 
         MatrixHelper.pushMatrix();
         MatrixHelper.translate(1.5f,0f,0f);
         vertexArray.setVertexAttribPointer(0, colorShaderProgram.getPositionAttributionLocation(), 3, 0);
-        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),0.6f,0.4f,1.0f,radius);
+        vertexArray1.setVertexAttribPointer(0, colorShaderProgram.getNormalLocation(), 3, 0);
+        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),vertexArray.getFloatBuffer(),radius);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,vCount);
         MatrixHelper.popMatrix();
         MatrixHelper.popMatrix();

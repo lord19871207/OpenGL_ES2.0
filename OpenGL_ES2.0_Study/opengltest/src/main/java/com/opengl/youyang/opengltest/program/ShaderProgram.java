@@ -15,7 +15,8 @@ public class ShaderProgram {
     protected static final String U_TEXTURE_UNIT = "u_TextureUnit";
     protected static final String U_COLOR = "u_Color";
     protected static final String UR = "uR";
-
+    protected static final String A_NORMAL="a_Normal";
+    protected static final String U_LIGHTLOCATION="uLightLocation";
 
     //attribute常量
     protected static final String A_POSITION = "a_Position";
