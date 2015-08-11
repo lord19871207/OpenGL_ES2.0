@@ -33,19 +33,66 @@
 连续线条line_strip
 ![](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530008.png)
 
-
+封闭线条line_loop
 ![封闭线条line_loop](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530009.png)
 
 定义为两个顶点之间的线段。边是面和多边形的边界线。在3D模型中，边可以被相邻的两个面或是多边形形共享。对一个边做变换将影响边相接的所有顶点，面或多边形。在OpenGL中，通常无需直接来定义一个边，而是通过顶点定义一个面，从而由面定义了其所对应的三条边。可以通过修改边的两个顶点来更改一条边
 
-<3>三角形 triangles
+<3>
+
+三角形 triangles
 ![三角形 triangles](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530011.png)
 
-共用一个条带上的顶点的三角形triangle_strip
+
+共用一个条带上的顶点的三角形
+triangle_strip
 ![](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530012.png)
 ，扇形排列共用相邻顶点的一组三角形triangle_fan
 
 在OpenGL ES中，面特指一个三角形，由三个顶点和三条边构成，对一个面所做的变化影响到连接面的所有顶点和边，面
+
+
+如下图定义了一个正方形：
+
+对应的顶点和buffer 定义代码：
+```
+1
+	private short[] indices = { 0, 1, 2, 0, 2, 3 };
+2
+	//To gain some performance we also put this ones in a byte buffer.
+3
+	// short is 2 bytes, therefore we multiply the number if vertices with 2.
+4
+	ByteBuffer ibb = ByteBuffer.allocateDirect(indices.length * 2);
+5
+	ibb.order(ByteOrder.nativeOrder());
+6
+	ShortBuffer indexBuffer = ibb.asShortBuffer();
+7
+	indexBuffer.put(indices);
+8
+	indexBuffer.position(0);
+```
+
+
+定义三角形的顶点的顺序很重要 在拼接曲面的时候，用来定义面的顶点的顺序非常重要，因为顶点的顺序定义了面的朝向（前向或是后向），为了获取绘制的高性能，一般情况不会绘制面的前面和后面，只绘制面的“前面”。虽然“前面”“后面”的定义可以应人而易，但一般为所有的“前面”定义统一的顶点顺序(顺时针或是逆时针方向）。
+
+下面代码设置逆时针方法为面的“前面”：
+1
+	gl.glFrontFace(GL10.GL_CCW);
+
+打开 忽略“后面”设置：
+1
+	gl.glEnable(GL10.GL_CULL_FACE);
+
+明确指明“忽略“哪个面的代码如下：
+查看源代码
+打印
+帮助
+1
+	gl.glCullFace(GL10.GL_BACK);
+
+
 
 位置变换：
 <1>平移
