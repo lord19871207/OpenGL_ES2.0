@@ -1,5 +1,8 @@
 # 4.图像的本质
-静态图像的本质其实是 位置与颜色的结合。动态图像需要增加方向向量和变换矩阵
+在手机上 静态图像的本质其实是 位置与颜色的结合。
+因为显示器上的这些图片都是bitmap位图 也叫就是点阵图。它们由一个一个的像素组合而成。每一个像素都有一个位置坐标和颜色值。所有的点集合在一起就成了一副图像。
+
+动态图像需要增加方向向量和变换矩阵，通过矩阵平移，旋转，投影，缩放，达到动态的效果。
 
 物体在图像中的位置与形状 由它们的几何形状，相机位置，以及环境特性等因素决定。而视觉外观则受材料属性，光源，纹理，以及光照模型的影响。
 
@@ -30,12 +33,17 @@
 连续线条line_strip
 ![](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530008.png)
 
-封闭线条line_loop
-![](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530009.png)
+
+![封闭线条line_loop](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530009.png)
 
 定义为两个顶点之间的线段。边是面和多边形的边界线。在3D模型中，边可以被相邻的两个面或是多边形形共享。对一个边做变换将影响边相接的所有顶点，面或多边形。在OpenGL中，通常无需直接来定义一个边，而是通过顶点定义一个面，从而由面定义了其所对应的三条边。可以通过修改边的两个顶点来更改一条边
 
-<3>三角形 triangles   共用一个条带上的顶点的三角形triangle_strip  ，扇形排列共用相邻顶点的一组三角形triangle_fan
+<3>三角形 triangles
+![三角形 triangles](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530011.png)
+
+共用一个条带上的顶点的三角形triangle_strip
+![](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530012.png)
+，扇形排列共用相邻顶点的一组三角形triangle_fan
 
 在OpenGL ES中，面特指一个三角形，由三个顶点和三条边构成，对一个面所做的变化影响到连接面的所有顶点和边，面
 
@@ -64,5 +72,6 @@ Render (渲染）
 
 我们已定义好了多边形，下面就要了解如和使用OpenGL ES的API来绘制（渲染）这个多边形了。OpenGL ES提供了两类方法来绘制一个空间几何图形：
 
-  public abstract void glDrawArrays(int mode, int first, int count)   使用VetexBuffer 来绘制，顶点的顺序由vertexBuffer中的顺序指定。
-    public abstract void glDrawElements(int mode, int count, int type, Buffer indices)  ，可以重新定义顶点的顺序，顶点的顺序由indices Buffer 指定。
+public abstract void glDrawArrays(int mode, int first, int count)   使用VetexBuffer 来绘制，顶点的顺序由vertexBuffer中的顺序指定。
+
+public abstract void glDrawElements(int mode, int count, int type, Buffer indices)  ，可以重新定义顶点的顺序，顶点的顺序由indices Buffer 指定。
