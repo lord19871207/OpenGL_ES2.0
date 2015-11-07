@@ -71,7 +71,6 @@ public class ShaderHelper {
             }
             return 0;
         }
-
         return programObjectId;
     }
 

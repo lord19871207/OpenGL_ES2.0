@@ -1,7 +1,7 @@
 uniform mat4 u_Matrix;
 uniform mat4 uMMatrix;
 uniform vec3 uLightLocation;
-attribute vec4 a_Normal;
+attribute vec3 a_Normal;
 varying vec4 vDiffuse;
 attribute vec3 a_Position;
 varying vec3 vPosition;
@@ -24,5 +24,4 @@ void main(){
     pointLight(normalize(a_Normal),diffuseTemp,uLightLocation,vec4(0.8,0.8,0.8,1.0));
     vDiffuse=diffuseTemp;
     vPosition=a_Position;
-//    vAmbient =vec4(0.8,0.8,0.8,1.0);
 }

@@ -4,6 +4,11 @@ package com.opengl.youyang.opengltest.object;
  * Created by youyang on 15-7-6.
  */
 public class ball {
+    float radius;
+
+    public ball(float r){
+        this.radius=r;
+    }
     private float[] generateBall(){
         int count=0;
         float[] ballVertex=new float[720];//20层 每一层的圆 36个点

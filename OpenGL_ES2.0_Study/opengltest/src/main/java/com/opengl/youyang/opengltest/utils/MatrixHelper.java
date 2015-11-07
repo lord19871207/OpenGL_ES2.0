@@ -14,6 +14,7 @@ public class MatrixHelper {
     private static float[] mProjMatrix=new float[16];  //投影矩阵
     private static float[] mVMatrix=new float[16];     //视图矩阵
     private static float[] mMVPMatrix =new float[16];                //最终总变换矩阵
+    private static float[] mMMatrix =new float[16];
 
     private static float[] currMatrix; //当前矩阵
     static float[][] mStack=new float[10][16];//用于保存变换矩阵的栈
@@ -36,8 +37,8 @@ public class MatrixHelper {
     //产生没有任何变化的矩阵
     public static void initStack(){
         currMatrix=new float[16];
-        Matrix.setIdentityM(currMatrix,0);
-        Matrix.setRotateM(currMatrix,0,0,1,0,0);
+        Matrix.setIdentityM(currMatrix, 0);
+        Matrix.setRotateM(currMatrix, 0, 0, 1, 0, 0);
     }
 
     //将当前的变换矩阵存入栈中
@@ -63,10 +64,12 @@ public class MatrixHelper {
 
     //沿着x，y，z方向旋转
     public static void rotate(int angle,float x,float y,float z){
-        Matrix.rotateM(currMatrix,0,angle, x,y,z);
+        Matrix.rotateM(currMatrix, 0, angle, x, y, z);
     }
 
-
+    public static float[] getMMatrix(){
+        return  currMatrix;
+    }
 
     /**
      * 创建投影矩阵

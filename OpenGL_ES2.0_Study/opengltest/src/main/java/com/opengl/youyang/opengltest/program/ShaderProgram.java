@@ -17,6 +17,8 @@ public class ShaderProgram {
     protected static final String UR = "uR";
     protected static final String A_NORMAL="a_Normal";
     protected static final String U_LIGHTLOCATION="uLightLocation";
+    protected static final String U_MMATRIX = "uMMatrix";
+
 
     //attribute常量
     protected static final String A_POSITION = "a_Position";
