@@ -16,7 +16,7 @@ Android为我们提供了一个专门的用在3D画图上的 GLSurfaceView。这
 
 (2) 所有的画图是在一个专门的Surface上进行，这个Surface可以最后被组合到android的View体系中 ；
 
-(3) 它可以根据EGL的配置来选择自己的buffer类型，比如RGB565，depth＝16 (这里有点疑问，SurfaceHolder的类型是SURFACE_TYPE_GPU，内存就是从EGL分配过来的？)
+(3) 它可以根据EGL的配置来选择自己的buffer类型，比如RGB565，depth＝16 。
 
 (4) 所有画图的操作都通过render来提供，而且render对Opengl的调用是在一个单独的线程中，可以获得更加平滑的动画效果。
 

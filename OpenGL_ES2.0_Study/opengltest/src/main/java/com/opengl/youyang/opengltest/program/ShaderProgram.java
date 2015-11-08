@@ -11,13 +11,14 @@ import com.opengl.youyang.opengltest.utils.TextResourceReader;
  */
 public class ShaderProgram {
     //uniform 常量
-    protected static final String U_MATRIX = "u_Matrix";
+    protected static final String U_MVPMATRIX = "u_MVPMatrix";
     protected static final String U_TEXTURE_UNIT = "u_TextureUnit";
     protected static final String U_COLOR = "u_Color";
     protected static final String UR = "uR";
     protected static final String A_NORMAL="a_Normal";
     protected static final String U_LIGHTLOCATION="uLightLocation";
     protected static final String U_MMATRIX = "uMMatrix";
+    protected static final String U_CAMERA = "uCamera";
 
 
     //attribute常量

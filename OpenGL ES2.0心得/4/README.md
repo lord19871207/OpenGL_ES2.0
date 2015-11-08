@@ -7,6 +7,7 @@
 ![](http://image.uisdc.com/wp-content/uploads/2014/04/23.png)
 
 
+
    静态图像在增加方向向量和变换矩阵后，通过矩阵平移，旋转，投影，缩放，就能达到动态的效果。
 ![](file:///Users/youyang/Library/Containers/com.evernote.Evernote/Data/Library/Application%20Support/com.evernote.Evernote/accounts/app.yinxiang.com/11246382/external-edits/7E8E7A0F-B1A4-4D37-BF49-EAC21BDD3AA3/C96A8F7E-EB75-44E2-BF4F-990F132CF3B0.gif)
 
@@ -34,7 +35,7 @@
 在单独的缓冲区中保存每个顶点属性
 
 
-模型：
+图元模型：
 <1>点 point
 
 ![](http://www.imobilebbs.com/wordpress/wp-content/uploads/2011/05/20110530007.png)

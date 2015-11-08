@@ -14,9 +14,11 @@ public class MatrixHelper {
     private static float[] mProjMatrix=new float[16];  //投影矩阵
     private static float[] mVMatrix=new float[16];     //视图矩阵
     private static float[] mMVPMatrix =new float[16];                //最终总变换矩阵
-    private static float[] mMMatrix =new float[16];
-
     private static float[] currMatrix; //当前矩阵
+
+    static float[] cameraLocation=new float[3];
+    public static FloatBuffer cameraFB;
+
     static float[][] mStack=new float[10][16];//用于保存变换矩阵的栈
     static int stackTop=-1;//栈顶索引
     public static float[] lightLocation=new float[]{0,0,0};//光源位置数组
@@ -31,6 +33,10 @@ public class MatrixHelper {
         lightPositionFB=llbbL.asFloatBuffer();
         lightPositionFB.put(lightLocation);
         lightPositionFB.position(0);
+    }
+
+    public static FloatBuffer getLightPositionFB(){
+        return lightPositionFB;
     }
 
 
@@ -125,6 +131,14 @@ public class MatrixHelper {
             float ux,float uy,float uz//up向量在x,y,z轴的分量
     ){
         Matrix.setLookAtM(mVMatrix,0,cx,cy,cz,tx,ty,tz,ux,uy,uz);
+
+        cameraLocation[0]=cx;cameraLocation[1]=cy;cameraLocation[2]=cz;
+        llbbL.clear();
+        llbbL.order(ByteOrder.nativeOrder());
+        cameraFB=llbbL.asFloatBuffer();
+        cameraFB.put(cameraLocation);
+        cameraFB.position(0);
+
     }
 
     //设置正交矩阵
@@ -151,4 +165,7 @@ public class MatrixHelper {
     }
 
 
+    public static FloatBuffer getCameraFB() {
+        return cameraFB;
+    }
 }
