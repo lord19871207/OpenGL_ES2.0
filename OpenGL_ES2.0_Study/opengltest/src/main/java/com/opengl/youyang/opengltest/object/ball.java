@@ -18,14 +18,12 @@ public class Ball {
         return vCount;
     }
 
-    public float[] generateBall(){
-        int count = 0;
+    public float[] generateBall(int angleSpan){
         ArrayList<Float> aList = new ArrayList<Float>();
 
         float[] ballVertex;
-        final int angleSpan = 10;
-        for (int vAngle = -90; vAngle < 90; vAngle += angleSpan) {
-            for (int hangle = 0; hangle <= 360; hangle += angleSpan) {
+        for (int vAngle = -90; vAngle < 90; vAngle += angleSpan) {//纬度
+            for (int hangle = 0; hangle <= 360; hangle += angleSpan) {//经度
                 float x0 = (float) (radius * UNIT_SIZE * Math.cos(Math.toRadians(vAngle)) * Math.cos(Math.toRadians(hangle)));
                 float y0 = (float) (radius * UNIT_SIZE * Math.cos(Math.toRadians(vAngle)) * Math.sin(Math.toRadians(hangle)));
                 float z0 = (float) (radius * UNIT_SIZE * Math.sin(Math.toRadians(vAngle)));
@@ -42,13 +40,15 @@ public class Ball {
                 float y3 = (float) (radius * UNIT_SIZE * Math.cos(Math.toRadians(vAngle + angleSpan)) * Math.sin(Math.toRadians(hangle)));
                 float z3 = (float) (radius * UNIT_SIZE * Math.sin(Math.toRadians(vAngle + angleSpan)));
 
-                //1 3 0    123
+                //1 3 0    1 2 3
                 aList.add(x1);
                 aList.add(y1);
                 aList.add(z1);
+
                 aList.add(x3);
                 aList.add(y3);
                 aList.add(z3);
+
                 aList.add(x0);
                 aList.add(y0);
                 aList.add(z0);
@@ -56,9 +56,11 @@ public class Ball {
                 aList.add(x1);
                 aList.add(y1);
                 aList.add(z1);
+
                 aList.add(x2);
                 aList.add(y2);
                 aList.add(z2);
+
                 aList.add(x3);
                 aList.add(y3);
                 aList.add(z3);

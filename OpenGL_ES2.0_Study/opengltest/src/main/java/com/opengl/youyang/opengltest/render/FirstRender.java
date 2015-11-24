@@ -7,10 +7,7 @@ import android.opengl.GLSurfaceView;
 import com.opengl.youyang.opengltest.data.VertexArray;
 import com.opengl.youyang.opengltest.object.Ball;
 import com.opengl.youyang.opengltest.program.ColorShaderProgram;
-import com.opengl.youyang.opengltest.program.TextureShaderProgram;
 import com.opengl.youyang.opengltest.utils.MatrixHelper;
-
-import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -27,11 +24,11 @@ public class FirstRender implements GLSurfaceView.Renderer {
     private VertexArray vertexArray;
 
     private Ball ball;
-    DrawCOntroller drawCOntroller;
+    DrawController mDrawController;
 
-    public FirstRender(Context context, DrawCOntroller drawCOntroller) {
+    public FirstRender(Context context, DrawController drawController) {
         this.context = context;
-        this.drawCOntroller = drawCOntroller;
+        this.mDrawController = drawController;
     }
 
     @Override
@@ -44,7 +41,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
         colorShaderProgram.useProgram();
 //        textureShaderProgram=new TextureShaderProgram(context);
 //        textureShaderProgram.useProgram();
-        vertex = ball.generateBall();
+        vertex = ball.generateBall(5);
         vertexArray = new VertexArray(vertex);
 
     }
@@ -63,22 +60,19 @@ public class FirstRender implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-//        MatrixHelper.setLightLocation(0.5f,0.5f,0.5f);
-//        colorShaderProgram.setUniforms_Location();
-//        colorShaderProgram.setUniforms_Camera();
         MatrixHelper.pushMatrix();
 
         MatrixHelper.pushMatrix();
         MatrixHelper.translate(-0.5f, 0f, 1f);
-        drawCOntroller.controllMatrix(MatrixHelper.getFinalMatrix());
-        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(), MatrixHelper.getMMatrix(), vertexArray.getFloatBuffer(), radius);
+        mDrawController.controllMatrix(MatrixHelper.getFinalMatrix());
+        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(), MatrixHelper.getMMatrix(),MatrixHelper.getLightPositionFB() , radius);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, ball.getvCount());
         MatrixHelper.popMatrix();
 
         MatrixHelper.pushMatrix();
         MatrixHelper.translate(1.5f, 0f, 0f);
-        drawCOntroller.controllMatrix(MatrixHelper.getFinalMatrix());
-        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),MatrixHelper.getMMatrix(), vertexArray.getFloatBuffer(), radius);
+        mDrawController.controllMatrix(MatrixHelper.getFinalMatrix());   //MatrixHelper.getLightPositionFB()     vertexArray.getFloatBuffer()
+        colorShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(),MatrixHelper.getMMatrix(), MatrixHelper.getLightPositionFB(), radius);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, ball.getvCount());
         MatrixHelper.popMatrix();
 
@@ -88,7 +82,7 @@ public class FirstRender implements GLSurfaceView.Renderer {
     }
 
 
-    public interface DrawCOntroller {
+    public interface DrawController {
         void controllMatrix(float[] projectionMarix);
     }
 

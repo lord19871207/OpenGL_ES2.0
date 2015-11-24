@@ -2,6 +2,8 @@ package com.opengl.youyang.opengltest.utils;
 
 import android.opengl.Matrix;
 
+import com.opengl.youyang.opengltest.data.Constants;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -23,19 +25,27 @@ public class MatrixHelper {
     static int stackTop=-1;//栈顶索引
     public static float[] lightLocation=new float[]{0,0,0};//光源位置数组
     public static FloatBuffer lightPositionFB;
-    static ByteBuffer llbbL=ByteBuffer.allocate(3*4);
+    static ByteBuffer llbbL=ByteBuffer.allocate(3* Constants.BYTES_PER_FLOAT);
+    static ByteBuffer light=ByteBuffer.allocate(3* Constants.BYTES_PER_FLOAT);
 
     public static void setLightLocation(float x,float y,float z){
-        llbbL.clear();
+        light.clear();
         lightLocation[0]=x;lightLocation[1]=y;
         lightLocation[2]=z;
-        llbbL.order(ByteOrder.nativeOrder());
-        lightPositionFB=llbbL.asFloatBuffer();
+        light.order(ByteOrder.nativeOrder());
+        lightPositionFB=light.asFloatBuffer();
         lightPositionFB.put(lightLocation);
         lightPositionFB.position(0);
     }
 
     public static FloatBuffer getLightPositionFB(){
+        light.clear();
+        lightLocation[0]=1.5f;lightLocation[1]=1.5f;
+        lightLocation[2]=2.5f;
+        light.order(ByteOrder.nativeOrder());
+        lightPositionFB=light.asFloatBuffer();
+        lightPositionFB.put(lightLocation);
+        lightPositionFB.position(0);
         return lightPositionFB;
     }
 

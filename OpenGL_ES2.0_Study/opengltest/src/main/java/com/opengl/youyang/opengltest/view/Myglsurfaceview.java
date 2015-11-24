@@ -2,7 +2,7 @@ package com.opengl.youyang.opengltest.view;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.opengl.youyang.opengltest.render.FirstRender;
@@ -11,10 +11,7 @@ import com.opengl.youyang.opengltest.utils.MatrixHelper;
 /**
  * Created by youyang on 15-6-23.
  */
-public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawCOntroller{
-    public Myglsurfaceview(Context context) {
-        super(context);
-    }
+public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawController {
 
     public int dY=5;
     public int dX=5;
@@ -23,6 +20,13 @@ public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawCO
     boolean isXLeft;
     boolean isYTop;
 
+    public Myglsurfaceview(Context context) {
+        super(context);
+    }
+
+    public Myglsurfaceview(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -51,13 +55,13 @@ public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawCO
     @Override
     public void controllMatrix(float[] projectionMarix) {
 
-//        if(isYTop){
-//            dY++;
-//            MatrixHelper.rotate(dY, 1.0f, 0f, 0f);
-//        }else{
-//            dY--;
-//            MatrixHelper.rotate(-dY, 1.0f, 0f, 0f);
-//        }
+        if(isYTop){
+            dY++;
+            MatrixHelper.rotate(dY, 1.0f, 0f, 0f);
+        }else{
+            dY--;
+            MatrixHelper.rotate(-dY, 1.0f, 0f, 0f);
+        }
 
         if(isXLeft){
             dX++;

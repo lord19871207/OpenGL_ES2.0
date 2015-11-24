@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ConfigurationInfo;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -22,12 +23,23 @@ import com.opengl.youyang.opengltest.view.Myglsurfaceview;
 
 public class MainActivity extends Activity{
     Myglsurfaceview view;
-    @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         boolean supportES2 = isSupportES2();
-        view = new Myglsurfaceview(this);
+        setContentView(R.layout.activity_main);
+        view = (Myglsurfaceview) findViewById(R.id.test);
+
+        findViewById(R.id.jumptexture).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent();
+                intent.setClass(MainActivity.this,TextureActivity.class);
+                startActivity(intent);
+
+            }
+        });
         if (supportES2) {
             view.setEGLContextClientVersion(2);
             view.setRenderer(new FirstRender(this,view));
@@ -36,7 +48,6 @@ public class MainActivity extends Activity{
             return;
         }
         view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-        setContentView(view);
 
     }
 

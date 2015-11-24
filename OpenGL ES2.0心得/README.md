@@ -1,5 +1,5 @@
 # 1.前言
-我在网上搜寻关于OpenGL ES2.0的资料时，发现关于android中OpenGL ES2.0开发的中文资料少的可怜，而成体系的资料更是凤毛麟角。所以我就动了一些念头，希望将自己学习OpenGL的过程记录下来，帮助到其他希望学习OpenGL的人。在学习的过程中，我也曾经获得过其他开源者的帮助，写点东西算是投桃报李，也是对自己知识的一个总结。
+我在网上搜寻关于OpenGL ES2.0的资料时，发现关于android中OpenGL ES2.0开发的中文资料少的可怜，而成体系的资料更是凤毛麟角。所以我就动了一些念头，希望将自己学习OpenGL的过程记录下来，帮助到其他希望学习OpenGL的人。在学习的过程中，我也曾经获得过其他开源者的帮助，写点东西既是投桃报李，也是对自己知识的一个总结。
 
 由于这里主要是记录我学习中的一些感想。可能有些地方讲的并不直观，有些地方只做了简要阐述。想更进一步的朋友也可以在网上找其他资料作为参考。
 
@@ -11,12 +11,12 @@
 
  <3>[NEHE android OpenGL ES教程](http://insanitydesign.com/wp/projects/nehe-android-ports/)，好不容易找到的教程，附带有github的开源项目代码作为讲解。唯一的不足就是 讲解内容为英文。
 
- <4>[OpenGL官网，英语好的就直接看这个吧](https://www.khronos.org/registry/gles/#specs)
+ <4>[OpenGL官网](https://www.khronos.org/registry/gles/#specs)，英语好的就直接看这个吧
 
- <5>[意外发现的学习OpenGL ES2.0的好网站。当然仍然需要英文~~](http://www.learnopengles.com/android-lesson-one-getting-started/)
+ <5>意外发现的学习OpenGL ES2.0的好[网站](http://www.learnopengles.com/android-lesson-one-getting-started/)。当然仍然需要英文~~
 
-<6>[着色语言的教程，这个内容很丰富](http://www.clockworkcoders.com/oglsl/tutorials.html)
+<6>[着色语言的教程](http://www.clockworkcoders.com/oglsl/tutorials.html)，这个内容很丰富
 
-<7>[一步一步教你学OpenGL](http://ogldev.atspace.co.uk/)
+<7>一步一步教你学[OpenGL](http://ogldev.atspace.co.uk/)
 
 

@@ -41,11 +41,10 @@ public class ColorShaderProgram extends ShaderProgram{
 //        GLES20.glUniform4f(u_ColorLocation,r,g,b,1.0f);
 
         GLES20.glUniformMatrix4fv(u_MMatrixLocation,1,false,mMatrix,0);
-        GLES20.glUniform3fv(u_LightLocation, 1,light);
         GLES20.glUniform1f(uRLocation,radius);
     }
 
-    public void setUniforms_Location(){
+    public void setLight_Uniforms_Location(){
         GLES20.glUniform3fv(u_LightLocation, 1, MatrixHelper.getLightPositionFB());
     }
 

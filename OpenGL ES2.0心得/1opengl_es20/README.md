@@ -28,7 +28,7 @@ surface显示出来。对于大多数情况下这就足够了。（但是由于G
 
 
 
-下面我们再看看利用GLSurface画3D图形的一个典型的Sequence
+下面我们再看看利用GLSurface画3D图形的一个典型的过程
 
 (1)  选择你的EGL配置(就是你画图需要的buffer类型) [optional] ：
             setEGLConfigChooser(boolean)

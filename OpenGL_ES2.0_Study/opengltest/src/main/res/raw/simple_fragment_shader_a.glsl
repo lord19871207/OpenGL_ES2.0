@@ -8,7 +8,7 @@ varying vec4 vSpecular;
 
 void main(){
     vec3 color;
-    float n=8.0;
+    float n=24.0;
     float span=2.0*uR/n;
     int i=int((vPosition.x+uR)/span);
     int j=int((vPosition.y+uR)/span);
@@ -23,5 +23,6 @@ void main(){
     }
 //    color=vec3(1.0,1.0,1.0);
     vec4 finalColor=vec4(color,0);
-    gl_FragColor =finalColor*vAmbient+finalColor*vDiffuse+finalColor*vSpecular ;
+
+    gl_FragColor =finalColor*(vAmbient+vDiffuse+vSpecular);
 }
