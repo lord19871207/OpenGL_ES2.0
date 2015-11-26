@@ -12,13 +12,28 @@ import com.opengl.youyang.opengltest.view.TextureSurfaceView;
  */
 public class TextureActivity extends Activity {
 
+    TextureSurfaceView view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TextureSurfaceView view = new TextureSurfaceView(this);
+        view = new TextureSurfaceView(this);
         view.setEGLContextClientVersion(2);
         view.setRenderer(new TextureRender(this));
         view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         setContentView(view);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        view.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        view.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        view.onResume();
     }
 }

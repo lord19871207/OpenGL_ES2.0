@@ -10,25 +10,15 @@ import java.util.ArrayList;
 public class Square {
     public float[] getSquare(float height,float width){
         float[] squareVertex = new float[]{
-                -width/2,height/2,
-                -width/2,-height/2,
-                width/2,-height/2,
-                width/2,-height/2,
-                width/2,height/2,
-                -width/2,height/2,
+                -width/2,height/2,0,0,
+                -width/2,-height/2,0,1.0f,
+                width/2,-height/2,1.0f,1.0f,
+                width/2,-height/2,1.0f,1.0f,
+                width/2,height/2,1.0f,0,
+                -width/2,height/2,0,0
         };
 
         return squareVertex;
     }
 
-    public float[] getSquareTexture() {
-        return new float[]{
-                0,0,
-                0,1.0f,
-                1.0f,1.0f,
-                1.0f,1.0f,
-                1.0f,0,
-                0,0
-        };
-    }
 }

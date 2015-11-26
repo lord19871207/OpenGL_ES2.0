@@ -22,9 +22,7 @@ public class TextureRender implements GLSurfaceView.Renderer {
     private TextureShaderProgram textureShaderProgram;
     private Context context;
     private float[] vertex;
-    private float[] vertex_texture;
     private VertexArray vertexArray;
-    private VertexArray vertex_texture_array;
 
     private Square square;
 
@@ -39,10 +37,8 @@ public class TextureRender implements GLSurfaceView.Renderer {
         square = new Square();
         textureShaderProgram = new TextureShaderProgram(context);
         textureShaderProgram.useProgram();
-        vertex = square.getSquare(2f, 2f);
-        vertex_texture = square.getSquareTexture();
+        vertex = square.getSquare(1f, 1f);
         vertexArray = new VertexArray(vertex);
-        vertex_texture_array = new VertexArray(vertex_texture);
 
     }
 
@@ -53,18 +49,18 @@ public class TextureRender implements GLSurfaceView.Renderer {
         MatrixHelper.perspectiveM(45, (float) width / (float) height, 1f, 10f);
         MatrixHelper.setCamera(0, 0, 8.0f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
-        vertexArray.setVertexAttribPointer(0, textureShaderProgram.getPositionAttributeLocation(), 3 * 4, 0);
-        vertex_texture_array.setVertexAttribPointer(0, textureShaderProgram.getTextureCoordinatesAttributeLocation(), 2 * 4, 0);
+        vertexArray.setVertexAttribPointer(0, textureShaderProgram.getPositionAttributeLocation(), 3, 5);
+        vertexArray.setVertexAttribPointer(2, textureShaderProgram.getTextureCoordinatesAttributeLocation(), 2, 5);
+        textureShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(), TextureHelper.loadTexture(context, R.drawable.aaa));
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-        MatrixHelper.pushMatrix();
 
         MatrixHelper.pushMatrix();
-        MatrixHelper.translate(0f, 0f, 1f);
-        textureShaderProgram.setUniforms(MatrixHelper.getFinalMatrix(), TextureHelper.loadTexture(context, R.drawable.ic_launcher));
+        MatrixHelper.pushMatrix();
+        MatrixHelper.translate(-0.5f, 0f, 1f);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 2);
         MatrixHelper.popMatrix();
 
