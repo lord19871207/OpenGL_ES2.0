@@ -1,1 +1,1 @@
-include ':app', ':opengltest'
+include ':app', ':opengltest', ':yumulibrary'

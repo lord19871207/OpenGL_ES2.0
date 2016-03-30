@@ -1,6 +1,7 @@
 package com.opengl.youyang.opengltest.view;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -19,6 +20,8 @@ public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawCo
     float touchY=0;
     boolean isXLeft;
     boolean isYTop;
+
+    Canvas canvas;
 
     public Myglsurfaceview(Context context) {
         super(context);

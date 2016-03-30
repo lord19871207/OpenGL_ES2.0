@@ -1,5 +1,6 @@
 # Summary
 
+* [Introduction](README.md)
 * [前言](chapter0/前言.md)
 * [我对OpenGL ES2.0的理解](chapter1/README.md)
 * [如何告诉OpenGL我们要画什么](chapter2/README.md)
@@ -14,3 +15,4 @@
 * [分形及其在OpenGL中的简单运用](chapter11/README.md)
 * [EGL详解](chapter12/README.md)
 * [光线追踪](chapter13/chapter13.md)
+
