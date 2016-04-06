@@ -8,10 +8,10 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.Size;
 
 import com.opengl.youyang.yumulibrary.programs.ColorShaderProgram;
 import com.opengl.youyang.yumulibrary.shape.Circle;
+import com.opengl.youyang.yumulibrary.shape.ShapeObjct;
 import com.opengl.youyang.yumulibrary.utils.IGLCanvas;
 import com.opengl.youyang.yumulibrary.utils.MatrixHelper;
 
@@ -23,7 +23,7 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.ShapeSize {
 
-    private Circle circle;
+    private ShapeObjct mShape;
     //存储矩阵数据
     private final float[] projectionMarix = new float[16];
     private final float[] viewMatrix = new float[16];
@@ -33,12 +33,14 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
     private int mWidth;
     private int mHeight;
 
+    GLRender(Context context){
+        this.mContext = context;
+    }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         colorShaderProgram = new ColorShaderProgram(mContext);
-        circle = new Circle(100f, 100f, 30f, this);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
         GLES20.glViewport(0, 0, width, height);
         mHeight = height;
         mWidth = width;
-        circle.generateVertices();
+        mShape.generateVertices();
         MatrixHelper.perspectiveM(projectionMarix, 45, (float) width / (float) height, 1f, 5f);
         android.opengl.Matrix.setLookAtM(viewMatrix, 0, 0f, 1.2f, 2.2f, 0f, 0f, 0f, 0f, 1f, 0f);
     }
@@ -62,8 +64,13 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
         android.opengl.Matrix.translateM(viewProjectionMatrix, 0, 0, 0, -5f);
         //        Matrix.rotateM(viewProjectionMatrix,0,-30f,1f,0f,0f);
         colorShaderProgram.setUniforms(viewProjectionMatrix, 1f, 0f, 0f);
-        circle.bindData(colorShaderProgram);
-        circle.draw();
+        mShape.bindData(colorShaderProgram);
+        mShape.draw();
+    }
+
+
+    void initShape(ShapeObjct obj){
+        mShape = obj;
     }
 
     @Override
@@ -93,6 +100,7 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
 
     @Override
     public void drawCircle(float cx, float cy, float radius) {
+        initShape(new Circle(cx,cy,radius,this));
 
     }
 
