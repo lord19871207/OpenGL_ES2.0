@@ -13,6 +13,7 @@ import com.opengl.youyang.yumulibrary.programs.ColorShaderProgram;
 import com.opengl.youyang.yumulibrary.shape.Circle;
 import com.opengl.youyang.yumulibrary.shape.ShapeObjct;
 import com.opengl.youyang.yumulibrary.utils.IGLCanvas;
+import com.opengl.youyang.yumulibrary.utils.IGLRender;
 import com.opengl.youyang.yumulibrary.utils.MatrixHelper;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -24,6 +25,8 @@ import javax.microedition.khronos.opengles.GL10;
 public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.ShapeSize {
 
     private ShapeObjct mShape;
+    private IGLRender mRender;
+
     //存储矩阵数据
     private final float[] projectionMarix = new float[16];
     private final float[] viewMatrix = new float[16];
@@ -33,12 +36,14 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
     private int mWidth;
     private int mHeight;
 
-    GLRender(Context context){
+    GLRender(Context context,IGLRender render){
         this.mContext = context;
+        this.mRender = render;
     }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         colorShaderProgram = new ColorShaderProgram(mContext);
     }
@@ -71,6 +76,7 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
 
     void initShape(ShapeObjct obj){
         mShape = obj;
+        mRender.requestRender();
     }
 
     @Override
@@ -101,7 +107,6 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
     @Override
     public void drawCircle(float cx, float cy, float radius) {
         initShape(new Circle(cx,cy,radius,this));
-
     }
 
     @Override
@@ -172,5 +177,9 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
     @Override
     public void drawBitmapMesh(@NonNull Bitmap bitmap, int meshWidth, int meshHeight, @NonNull float[] verts, int vertOffset, @Nullable int[] colors, int colorOffset) {
 
+    }
+
+    @Override
+    public void requestRender() {
     }
 }
