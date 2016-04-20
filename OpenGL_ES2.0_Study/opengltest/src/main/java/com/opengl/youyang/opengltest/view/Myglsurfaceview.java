@@ -21,8 +21,6 @@ public class Myglsurfaceview extends GLSurfaceView implements FirstRender.DrawCo
     boolean isXLeft;
     boolean isYTop;
 
-    Canvas canvas;
-
     public Myglsurfaceview(Context context) {
         super(context);
     }

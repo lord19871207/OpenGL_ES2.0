@@ -3,8 +3,6 @@ package com.opengl.youyang.yumulibrary.utils;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 /**
  * Created by youyang on 16/3/30.
@@ -69,7 +67,7 @@ public interface IGLCanvas {
      * @param sweepAngle
      * @param useCenter
      */
-    void drawArc(@NonNull RectF oval, float startAngle, float sweepAngle, boolean useCenter);
+    void drawArc(RectF oval, float startAngle, float sweepAngle, boolean useCenter);
 
     /**
      * 绘制bitmap
@@ -77,13 +75,13 @@ public interface IGLCanvas {
      * @param left
      * @param top
      */
-    void drawBitmap(@NonNull Bitmap bitmap, float left, float top);
+    void drawBitmap(Bitmap bitmap, float left, float top);
 
     /**
      * 设置图片
      * @param bitmap
      */
-    void setBitmap(@Nullable Bitmap bitmap);
+    void setBitmap( Bitmap bitmap);
 
     /**
      * 设置绘制区域大小
@@ -146,7 +144,7 @@ public interface IGLCanvas {
      * 设置矩阵
      * @param matrix
      */
-    void setMatrix(@Nullable Matrix matrix);
+    void setMatrix( Matrix matrix);
 
     /**
      * 绘制网格图片
@@ -158,8 +156,8 @@ public interface IGLCanvas {
      * @param colors
      * @param colorOffset
      */
-    void drawBitmapMesh(@NonNull Bitmap bitmap, int meshWidth, int meshHeight,
-                        @NonNull float[] verts, int vertOffset, @Nullable int[] colors, int colorOffset);
+    void drawBitmapMesh(Bitmap bitmap, int meshWidth, int meshHeight,
+                        float[] verts, int vertOffset,  int[] colors, int colorOffset);
 
     /**
      * 刷新当前的图片

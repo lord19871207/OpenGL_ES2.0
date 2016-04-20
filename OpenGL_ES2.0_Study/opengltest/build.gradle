@@ -26,5 +26,5 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.github.ozodrukh:CircularReveal:1.1.0@aar'
+    compile project(':yumulibrary')
 }

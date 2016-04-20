@@ -16,7 +16,7 @@ public class Circle implements ShapeObjct {
     private static final int STRIDE = (POSITION_COMPONENT_COUNT + TEXTURE_COORDINATES_COMPONENT_COUNT) * Constants.BYTES_PER_FLOAT;
     private VertexArray vertexArray;
     private float[] VERTEX_DATA;
-    int seg;
+    int seg = 20;
     private float mCx;
     private float mCy;
     private float mRadius;

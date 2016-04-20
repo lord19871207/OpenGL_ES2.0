@@ -6,9 +6,6 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.opengl.youyang.yumulibrary.programs.ColorShaderProgram;
 import com.opengl.youyang.yumulibrary.shape.Circle;
 import com.opengl.youyang.yumulibrary.shape.ShapeObjct;
@@ -110,17 +107,17 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
     }
 
     @Override
-    public void drawArc(@NonNull RectF oval, float startAngle, float sweepAngle, boolean useCenter) {
+    public void drawArc(RectF oval, float startAngle, float sweepAngle, boolean useCenter) {
 
     }
 
     @Override
-    public void drawBitmap(@NonNull Bitmap bitmap, float left, float top) {
+    public void drawBitmap(Bitmap bitmap, float left, float top) {
 
     }
 
     @Override
-    public void setBitmap(@Nullable Bitmap bitmap) {
+    public void setBitmap(Bitmap bitmap) {
 
     }
 
@@ -170,12 +167,12 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
     }
 
     @Override
-    public void setMatrix(@Nullable Matrix matrix) {
+    public void setMatrix(Matrix matrix) {
 
     }
 
     @Override
-    public void drawBitmapMesh(@NonNull Bitmap bitmap, int meshWidth, int meshHeight, @NonNull float[] verts, int vertOffset, @Nullable int[] colors, int colorOffset) {
+    public void drawBitmapMesh(Bitmap bitmap, int meshWidth, int meshHeight, float[] verts, int vertOffset, int[] colors, int colorOffset) {
 
     }
 
