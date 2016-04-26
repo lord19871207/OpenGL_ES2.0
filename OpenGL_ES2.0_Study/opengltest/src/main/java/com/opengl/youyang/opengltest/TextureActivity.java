@@ -38,6 +38,7 @@ public class TextureActivity extends Activity {
 
         if(mCanvas!=null){
             mCanvas.drawCircle(200,200,60);
+//            mCanvas.drawPoints(null,0,0);
         }
     }
 }

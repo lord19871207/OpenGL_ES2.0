@@ -7,6 +7,12 @@ import com.opengl.youyang.yumulibrary.programs.ColorShaderProgram;
  */
 public interface ShapeObjct {
     void draw();
-    void generateVertices();
+    void generateVertices(boolean isRecrate);
     void bindData(ColorShaderProgram colorShaderProgram);
+
+    void  setColor(int color);
+
+    int getColor();
+
+
 }

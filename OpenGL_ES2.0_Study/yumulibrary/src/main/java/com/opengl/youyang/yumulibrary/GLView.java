@@ -26,7 +26,7 @@ public class GLView extends GLSurfaceView implements IGLRender{
         mCanvas = new GLRender(mContext,this);
         setEGLContextClientVersion(2);
         setRenderer((GLRender)mCanvas);
-        setRenderMode(RENDERMODE_WHEN_DIRTY);
+        setRenderMode(RENDERMODE_CONTINUOUSLY);
 
     }
 
