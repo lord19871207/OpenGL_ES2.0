@@ -12,7 +12,6 @@ import com.opengl.youyang.yumulibrary.shape.Point;
 import com.opengl.youyang.yumulibrary.shape.ShapeObjct;
 import com.opengl.youyang.yumulibrary.utils.IGLCanvas;
 import com.opengl.youyang.yumulibrary.utils.IGLRender;
-import com.opengl.youyang.yumulibrary.utils.MatrixHelper;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -64,14 +63,14 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
         //每次绘制一帧画面时都会调用。如果什么都不做，可能会看到糟糕的闪烁效果
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 //        android.opengl.Matrix.setIdentityM(viewMatrix, 0);
-//        android.opengl.Matrix.translateM(viewMatrix, 0, 0, 0, 1f);
+//        android.opengl.Matrix.translateM(viewMatrix, 0, 0, 0, -4f);
         final float[] temp = new float[16];
 //        android.opengl.Matrix.multiplyMM(temp, 0, projectionMarix, 0, viewMatrix, 0);
 //        System.arraycopy(temp,0,projectionMarix,0,temp.length);
 
         colorShaderProgram.useProgram();
 
-        colorShaderProgram.setUniforms(projectionMarix, 0.7f, 0.2f, 0.2f);
+        colorShaderProgram.setUniforms(viewMatrix, 0.1f, 0.2f, 0.2f);
         mShape.bindData(colorShaderProgram);
         mShape.draw();
     }
@@ -89,7 +88,7 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
 
     @Override
     public void drawPoints(float[] pts, int offset, int count) {
-        mPoint = new Point(0,0,this);
+        mPoint = new Point(100,100,this);
         mPoint.generateVertices(true);
         initShape(mPoint);
 
@@ -112,10 +111,10 @@ public class GLRender implements GLSurfaceView.Renderer, IGLCanvas, Circle.Shape
 
     @Override
     public void drawCircle(float cx, float cy, float radius) {
-        if(mCircle == null || mCircle.getCx()!=cx || mCircle.getCy()!=cy ||mCircle.getRadius() != radius){
+//        if(mCircle == null || mCircle.getCx()!=cx || mCircle.getCy()!=cy ||mCircle.getRadius() != radius){
             mCircle = new Circle(cx,cy,radius,this);
             mCircle.generateVertices(false);
-        }
+//        }
         initShape(mCircle);
     }
 

@@ -20,7 +20,7 @@ public class ColorShaderProgram extends ShaderProgram{
     }
 
     public void setUniforms(float[] matrix,float r,float g,float b){
-        GLES20.glUniformMatrix4fv(u_MatrixLocation,1,false,matrix,0);
+//        GLES20.glUniformMatrix4fv(u_MatrixLocation,1,false,matrix,0);
         GLES20.glUniform4f(u_ColorLocation,r,g,b,1f);
     }
 

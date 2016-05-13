@@ -40,7 +40,7 @@ public class Point implements ShapeObjct {
 
     @Override
     public void draw() {
-        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, 2);
+        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, 1);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class Point implements ShapeObjct {
         }
 
         //将视图坐标转化为 归一化坐标
-        final float normalizedX = (mPx / (float) mShape.getWidth()) * 2 - 1;
-        final float normalizedY = (mPy / (float) mShape.getHeight()) * 2 - 1;
+        final float normalizedX = (mPx / (float) 1000) * 2 - 1;
+        final float normalizedY = (mPy / (float) 1000) * 2 - 1;
         VERTEX_DATA = new float[2];
         VERTEX_DATA[0] = normalizedX;
         VERTEX_DATA[1] = normalizedY;

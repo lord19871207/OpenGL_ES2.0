@@ -67,7 +67,7 @@ public class Circle implements ShapeObjct {
     }
 
     public void draw() {
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, seg);
+        GLES20.glDrawArrays(GLES20.GL_LINE_LOOP, 0, seg);
     }
 
     @Override
@@ -80,19 +80,17 @@ public class Circle implements ShapeObjct {
         }
 
         //将视图坐标转化为 归一化坐标
-        final float normalizedX = (mCx / (float) mShape.getWidth()) * 2 - 1;
-        final float normalizedY = (mCy / (float) mShape.getHeight()) * 2 - 1;
+        final float normalizedX = (mCx / (float) 1000.0) * 2 - 1;
+        final float normalizedY = (mCy / (float) 1000.0) * 2 - 1;
+        final float normalizedR = (mRadius / (float) 1000.0);
 
         VERTEX_DATA = new float[seg * 2];
         int j = 0;
         for (float i = 0; i < 360.0f; i += (360.0f / seg)) {
-            VERTEX_DATA[j++] = (float) Math.cos(angleTOradian(i)) * mRadius + normalizedX;
-            VERTEX_DATA[j++] = (float) Math.sin(angleTOradian(i)) * mRadius + normalizedY;
+            VERTEX_DATA[j++] = (float) Math.cos(angleTOradian(i)) * normalizedR + normalizedX;
+            VERTEX_DATA[j++] = (float) Math.sin(angleTOradian(i)) * normalizedR + normalizedY;
         }
         vertexArray = new VertexArray(VERTEX_DATA);
-
-
-
     }
 
     private double angleTOradian(float radian) {

@@ -35,6 +35,17 @@ public class MainActivity extends Activity{
 
             }
         });
+
+        findViewById(R.id.jumptexture1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent();
+                intent.setClass(MainActivity.this,Texture1Activity.class);
+                startActivity(intent);
+
+            }
+        });
         if (supportES2) {
             view.setEGLContextClientVersion(2);
             view.setRenderer(new FirstRender(this,view));

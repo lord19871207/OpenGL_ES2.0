@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.opengl.youyang.opengltest" >
 
-
+    <uses-feature android:glEsVersion="0x00020000"></uses-feature>
+    <uses-sdk android:targetSdkVersion="8" android:minSdkVersion="8"></uses-sdk>
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,10 @@
         <activity
                 android:name=".TextureActivity"
                  >
+        </activity>
+        <activity
+                android:name=".Texture1Activity"
+        >
         </activity>
 
     </application>
